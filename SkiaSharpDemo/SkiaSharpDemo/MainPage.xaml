@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             x:Class="SkiaSharpDemo.MainPage">
+
+    <ScrollView Orientation="Vertical"
+                HeightRequest="2000">
+        <StackLayout WidthRequest="800">
+            
+            <Label Text="Static text?"></Label>
+            <StackLayout Orientation="Horizontal">
+                <ScrollView x:Name ="Sv1" 
+                            Orientation="Both"
+                            WidthRequest="800"
+                            HeightRequest="200"
+                            HorizontalOptions="Start"
+                            HorizontalScrollBarVisibility="Never"
+                            Scrolled="ScrollView_OnScrolled">
+                    <skia:SKCanvasView x:Name="LineView"
+                                       PaintSurface="canvasView_Line1"
+                                       WidthRequest="2000"
+                                       HorizontalOptions="Start"></skia:SKCanvasView>
+                </ScrollView>
+                <Label Text="Latest value"></Label>
+            </StackLayout>
+            
+
+            <Label Text="Static text"></Label>
+            <ScrollView x:Name ="Sv2"
+                        Orientation="Both"
+                        WidthRequest="800"
+                        HeightRequest="200"
+                        HorizontalOptions="Start"
+                        HorizontalScrollBarVisibility="Never">
+                <skia:SKCanvasView x:Name="LineView2"
+                                   PaintSurface="canvasView_Line2"
+                                   WidthRequest="2000"
+                                   HorizontalOptions="Start"></skia:SKCanvasView>
+            </ScrollView>
+            <Label Text="More static text?"></Label>
+            <ScrollView x:Name ="Sv3"
+                        Orientation="Both"
+                        WidthRequest="800"
+                        HeightRequest="200"
+                        HorizontalOptions="Start"
+                        HorizontalScrollBarVisibility="Never">
+                <skia:SKCanvasView x:Name="LineView3"
+                                   PaintSurface="canvasView_Line2"
+                                   WidthRequest="2000"
+                                   HorizontalOptions="Start"></skia:SKCanvasView>
+            </ScrollView>
+        </StackLayout>
+    </ScrollView>
+
+
+
+    
+    
+
+</ContentPage>
