@@ -16,7 +16,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -93,7 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SkiaSharpDemo\SkiaSharpDemo.csproj">
-      <Project>{EFA08E83-A3FF-42B7-859A-67CF7E4B2A2E}</Project>
+      <Project>{1B355583-5840-44DA-B6F1-2FF56746D869}</Project>
       <Name>SkiaSharpDemo</Name>
     </ProjectReference>
   </ItemGroup>
