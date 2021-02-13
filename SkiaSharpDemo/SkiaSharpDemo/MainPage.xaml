@@ -46,7 +46,7 @@
                         HorizontalOptions="Start"
                         HorizontalScrollBarVisibility="Never">
                 <skia:SKCanvasView x:Name="LineView3"
-                                   PaintSurface="canvasView_Line2"
+                                   PaintSurface="canvasView_Line3"
                                    WidthRequest="2000"
                                    HorizontalOptions="Start"></skia:SKCanvasView>
             </ScrollView>
