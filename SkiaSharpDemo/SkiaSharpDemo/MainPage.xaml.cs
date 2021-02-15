@@ -26,6 +26,14 @@ namespace SkiaSharpDemo
             StrokeCap = SKStrokeCap.Square
         };
 
+        private SKPaint graphIntervalsPaint = new SKPaint()
+        {
+            Style = SKPaintStyle.Stroke,
+            Color = SKColors.DarkGray,
+            StrokeWidth = 1,
+
+        };
+
         private SKPaint trendLinePaint = new SKPaint()
         {
             Style = SKPaintStyle.Stroke,
@@ -224,12 +232,16 @@ namespace SkiaSharpDemo
             for (int i = 50; i < 2000; i += 50)
             {
                 canvas.DrawLine(i, 0, i, 180, graphLinePaint);
+
+                if (i % 200 == 0)
+                    canvas.DrawText($"{i/200}", x: i, y: 190, graphIntervalsPaint);
             }
 
             // draw horizontal grid lines
             for (int i = 18; i < 180; i += 18)
             {
                 canvas.DrawLine(0, i, 2000, i, graphLinePaint);
+                
             }
         }
 
