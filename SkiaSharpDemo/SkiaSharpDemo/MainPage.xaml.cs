@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,12 +9,14 @@ using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Shapes;
+using Xamarin.Forms.Xaml;
+using PropertyChangingEventArgs = Xamarin.Forms.PropertyChangingEventArgs;
 
 namespace SkiaSharpDemo
 {
     public partial class MainPage : ContentPage
     {
-        private readonly List<ScrollView> scrollList = new List<ScrollView>();
+        private readonly List<ScrollView> _trendViewScrollViews = new List<ScrollView>();
         int interval = 4;
         List<DataPoint> dataPoints = new List<DataPoint>();
         List<SKPoint> sKPoints = new List<SKPoint>();
@@ -63,7 +66,37 @@ namespace SkiaSharpDemo
             sKPoints.Add(new SKPoint(800, 80));
             sKPoints.Add(new SKPoint(1200, 130));
             sKPoints.Add(new SKPoint(1500, 30));
-    
+
+            _trendViewScrollViews.Add(Sv1);
+            _trendViewScrollViews.Add(Sv2);
+            _trendViewScrollViews.Add(Sv3);
+
+            foreach (ScrollView view in _trendViewScrollViews)
+            {
+                view.PropertyChanging += GraphPropertyChanging;
+            }
+
+        }
+
+        private void GraphPropertyChanging(object sender, PropertyChangingEventArgs e)
+        {
+            var scrollView = (ScrollView) sender;
+            if (e.PropertyName == "ScrollX")
+            {
+                foreach (ScrollView view in _trendViewScrollViews)
+                {
+                    if (scrollView != view)
+                    {
+                        view.PropertyChanging -= GraphPropertyChanging;
+                        view.ScrollToAsync(scrollView.ScrollX, scrollView.ScrollY, false);
+                        view.PropertyChanging += GraphPropertyChanging;
+                    }
+                }
+                // Sv2.ScrollToAsync(scrollView.ScrollX, scrollView.ScrollY, false);
+                // Sv3.ScrollToAsync(scrollView.ScrollX, scrollView.ScrollY, false);
+                Debug.WriteLine("scrolling");
+            }
+            Debug.WriteLine("sv1 changed");
         }
 
         protected override void OnAppearing()
@@ -80,12 +113,12 @@ namespace SkiaSharpDemo
         //
         // }
 
-        private void canvasView_Line1(object sender, SKPaintSurfaceEventArgs e)
+        private void CanvasView_Line1(object sender, SKPaintSurfaceEventArgs e)
         {
             SKSurface surface = e.Surface;
             SKCanvas canvas = surface.Canvas;
 
-            drawGraph(canvas, e);
+            DrawGraph(canvas, e);
 
             //List<float> data = new List<float>();
             //data.Add(dataPoint.coord[0]);
@@ -124,31 +157,14 @@ namespace SkiaSharpDemo
 
             }
 
-            //canvas.DrawCircle(300, dataPoint.coord[0], 6, dataPointPaint);
-            //canvas.DrawCircle(800, 100, 6, dataPointPaint);
-            //canvas.DrawCircle(1200, 150, 6, dataPointPaint);
-            //canvas.DrawCircle(1500, 50, 6, dataPointPaint);
-            //dataPointPaint.Style = SKPaintStyle.Fill;
-            //dataPointPaint.Color = SKColors.White;
-
-            //canvas.DrawLine(300, 100, 800, 100, trendLinePaint);
-            //canvas.DrawLine(800, 100, 1200, 150, trendLinePaint);
-            //canvas.DrawLine(1200, 150, 1500, 50, trendLinePaint);
-
-            //canvas.DrawCircle(300, dataPoint.coord[0], 6, dataPointPaint);
-            //canvas.DrawCircle(800, 100, 6, dataPointPaint);
-            //canvas.DrawCircle(1200, 150, 6, dataPointPaint);
-            //canvas.DrawCircle(1500, 50, 6, dataPointPaint);
-
-
         }
 
-        private void canvasView_Line2(object sender, SKPaintSurfaceEventArgs e)
+        private void CanvasView_Line2(object sender, SKPaintSurfaceEventArgs e)
         {
             SKSurface surface = e.Surface;
             SKCanvas canvas = surface.Canvas;
 
-            drawGraph(canvas, e);
+            DrawGraph(canvas, e);
             dataPointPaint.Style = SKPaintStyle.Stroke;
             dataPointPaint.Color = SKColors.Green;
             trendLinePaint.Style = SKPaintStyle.Stroke;
@@ -173,12 +189,12 @@ namespace SkiaSharpDemo
 
         }
 
-        private void canvasView_Line3(object sender, SKPaintSurfaceEventArgs e)
+        private void CanvasView_Line3(object sender, SKPaintSurfaceEventArgs e)
         {
             SKSurface surface = e.Surface;
             SKCanvas canvas = surface.Canvas;
 
-            drawGraph(canvas, e);
+            DrawGraph(canvas, e);
             dataPointPaint.Style = SKPaintStyle.Stroke;
             dataPointPaint.Color = SKColors.Red;
             trendLinePaint.Style = SKPaintStyle.Stroke;
@@ -203,27 +219,7 @@ namespace SkiaSharpDemo
 
         }
 
-        private void ScrollView_OnScrolled(object sender, ScrolledEventArgs e)
-        {
-            //foreach (ScrollView scrollView in scrollList)
-            //{
-            //    if (scrollView != sender)
-            //    {
-            //        scrollView.ScrollToAsync(e.ScrollX, e.ScrollY, true);
-            
-            //    }
-            //}
-
-            // if(sender != Sv1)
-            //     Sv1.ScrollToAsync(e.ScrollX, e.ScrollY, true);
-            // if(sender != Sv2)
-            Sv2.ScrollToAsync(e.ScrollX, e.ScrollY, true);
-            // if(sender != Sv3)
-            Sv3.ScrollToAsync(e.ScrollX, e.ScrollY, true);
-
-        }
-
-        private void drawGraph(SKCanvas canvas, SKPaintSurfaceEventArgs e)
+        private void DrawGraph(SKCanvas canvas, SKPaintSurfaceEventArgs e)
         {
             // draw graph Grid
             canvas.DrawRect(0,0,2000, 180, graphLinePaint);
@@ -234,7 +230,7 @@ namespace SkiaSharpDemo
                 canvas.DrawLine(i, 0, i, 180, graphLinePaint);
 
                 if (i % 200 == 0)
-                    canvas.DrawText($"{i/200}", x: i, y: 190, graphIntervalsPaint);
+                    canvas.DrawText($"{i/50}", x: i, y: 190, graphIntervalsPaint);
             }
 
             // draw horizontal grid lines
