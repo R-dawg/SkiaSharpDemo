@@ -20,7 +20,9 @@
                     <skia:SKCanvasView x:Name="LineView"
                                        PaintSurface="canvasView_Line1"
                                        WidthRequest="2000"
-                                       HorizontalOptions="Start"></skia:SKCanvasView>
+                                       HorizontalOptions="Start"
+                                       EnableTouchEvents="True"
+                                       Touch="LineView_Touch"></skia:SKCanvasView>
                 </ScrollView>
                 <Label Text="Latest value"></Label>
             </StackLayout>
@@ -50,6 +52,10 @@
                                    WidthRequest="2000"
                                    HorizontalOptions="Start"></skia:SKCanvasView>
             </ScrollView>
+            <Polyline Points="20 20,250 50,20 120"
+          Stroke="DarkBlue"
+          StrokeThickness="20"
+          StrokeLineJoin="Round" />
         </StackLayout>
     </ScrollView>
 

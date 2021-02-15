@@ -8,6 +8,7 @@ namespace SkiaSharpDemo
     {
         public App()
         {
+            Device.SetFlags(new string[] { "Shapes_Experimental" });
             InitializeComponent();
 
             MainPage = new MainPage();
