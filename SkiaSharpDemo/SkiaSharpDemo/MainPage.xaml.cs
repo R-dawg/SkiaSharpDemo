@@ -18,8 +18,15 @@ namespace SkiaSharpDemo
     {
         private readonly List<ScrollView> _trendViewScrollViews = new List<ScrollView>();
         int interval = 4;
-        List<DataPoint> dataPoints = new List<DataPoint>();
-        List<SKPoint> sKPoints = new List<SKPoint>();
+        List<DataPoint> _VS1DataPoints = new List<DataPoint>();
+        List<DataPoint> _VS2DataPoints = new List<DataPoint>();
+        List<SKPoint> _SKPointsVS1 = new List<SKPoint>();
+        List<SKPoint> _SKPointsVS1a = new List<SKPoint>();
+        List<SKPoint> _SKPointsVS2 = new List<SKPoint>();
+        List<DataPoint> _VS3DataPoints = new List<DataPoint>();
+        List<SKPoint> _SKPointsVS3 = new List<SKPoint>();
+
+        #region SKPaints
 
         private SKPaint graphLinePaint = new SKPaint()
         {
@@ -54,18 +61,15 @@ namespace SkiaSharpDemo
             IsAntialias = true
         };
 
+        #endregion
+        
+
         public MainPage()
         {
             InitializeComponent();
-            dataPoints.Add(new DataPoint(300, 100));
-            dataPoints.Add(new DataPoint(800, 100));
-            dataPoints.Add(new DataPoint(1200, 150));
-            dataPoints.Add(new DataPoint(1500, 50));
-
-            sKPoints.Add(new SKPoint(300, 80));
-            sKPoints.Add(new SKPoint(800, 80));
-            sKPoints.Add(new SKPoint(1200, 130));
-            sKPoints.Add(new SKPoint(1500, 30));
+            InitializeVS1();
+            InitializeVS2();
+            InitializeVS3();
 
             _trendViewScrollViews.Add(Sv1);
             _trendViewScrollViews.Add(Sv2);
@@ -74,6 +78,61 @@ namespace SkiaSharpDemo
             foreach (ScrollView view in _trendViewScrollViews)
             {
                 view.PropertyChanging += GraphPropertyChanging;
+            }
+
+        }
+
+        private void InitializeVS1()
+        {
+            _VS1DataPoints.Add(new DataPoint(300, 100));
+            _VS1DataPoints.Add(new DataPoint(800, 100));
+            _VS1DataPoints.Add(new DataPoint(1200, 150));
+            _VS1DataPoints.Add(new DataPoint(1500, 50));
+
+            _SKPointsVS1.Add(_VS1DataPoints.FirstOrDefault().point);
+            foreach (var dataPoint in _VS1DataPoints.Skip(1))
+            {
+                _SKPointsVS1.Add(dataPoint.point);
+                _SKPointsVS1.Add(dataPoint.point);
+            }
+
+            // Just adding a 2nd line to see what it looks like on the graph
+            _SKPointsVS1a.Add(new SKPoint(300, 70));
+            _SKPointsVS1a.Add(new SKPoint(800, 50));
+            _SKPointsVS1a.Add(new SKPoint(800, 50));
+            _SKPointsVS1a.Add(new SKPoint(1200, 110));
+            _SKPointsVS1a.Add(new SKPoint(1200, 110));
+            _SKPointsVS1a.Add(new SKPoint(1500, 15));
+        }
+
+        private void InitializeVS2()
+        {
+            _VS2DataPoints.Add(new DataPoint(300, 100));
+            _VS2DataPoints.Add(new DataPoint(800, 100));
+            _VS2DataPoints.Add(new DataPoint(1200, 150));
+            _VS2DataPoints.Add(new DataPoint(1500, 50));
+
+            _SKPointsVS2.Add(_VS2DataPoints.FirstOrDefault().point);
+            foreach (var dataPoint in _VS2DataPoints.Skip(1))
+            {
+                _SKPointsVS2.Add(dataPoint.point);
+                _SKPointsVS2.Add(dataPoint.point);
+            }
+
+        }
+
+        private void InitializeVS3()
+        {
+            _VS3DataPoints.Add(new DataPoint(300, 100));
+            _VS3DataPoints.Add(new DataPoint(800, 100));
+            _VS3DataPoints.Add(new DataPoint(1200, 150));
+            _VS3DataPoints.Add(new DataPoint(1500, 50));
+
+            _SKPointsVS3.Add(_VS3DataPoints.FirstOrDefault().point);
+            foreach (var dataPoint in _VS3DataPoints.Skip(1))
+            {
+                _SKPointsVS3.Add(dataPoint.point);
+                _SKPointsVS3.Add(dataPoint.point);
             }
 
         }
@@ -92,130 +151,89 @@ namespace SkiaSharpDemo
                         view.PropertyChanging += GraphPropertyChanging;
                     }
                 }
-                // Sv2.ScrollToAsync(scrollView.ScrollX, scrollView.ScrollY, false);
-                // Sv3.ScrollToAsync(scrollView.ScrollX, scrollView.ScrollY, false);
-                Debug.WriteLine("scrolling");
             }
-            Debug.WriteLine("sv1 changed");
         }
 
         protected override void OnAppearing()
         {
-            _ = Sv1.ScrollToAsync(2000, 0, false);
+            Sv1.ScrollToAsync(1200, 0, false);
         }
 
-        // private void canvasView_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
-        // {
-        //     SKSurface surface = e.Surface;
-        //     SKCanvas canvas = surface.Canvas;
-        //
-        //     canvas.Clear(SKColors.Purple);
-        //
-        // }
-
-        private void CanvasView_Line1(object sender, SKPaintSurfaceEventArgs e)
+        private void TrendView1(object sender, SKPaintSurfaceEventArgs e)
         {
             SKSurface surface = e.Surface;
             SKCanvas canvas = surface.Canvas;
 
             DrawGraph(canvas, e);
 
-            //List<float> data = new List<float>();
-            //data.Add(dataPoint.coord[0]);
-            //data.Add(400);
-            //data.Add(300);
-            //data.Add(600);
-
             // draw trend line
-            //canvas.DrawPoints(SKPointMode.Lines, sKPoints.ToArray(), dataPointPaint);
-            var start = new SKPoint();
-            foreach(DataPoint dataPoint in dataPoints)
+            trendLinePaint.Color = SKColors.Orange;
+            canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS1.ToArray(), trendLinePaint);
+            foreach (SKPoint point in _SKPointsVS1)
             {
                 dataPointPaint.Style = SKPaintStyle.Stroke;
                 dataPointPaint.Color = SKColors.Orange;
-                var end = new SKPoint(dataPoint.time, dataPoint.value);
+                canvas.DrawCircle(point, 6, dataPointPaint);
+                dataPointPaint.Style = SKPaintStyle.Fill;
+                dataPointPaint.Color = SKColors.White;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+            }
 
-                if(!start.IsEmpty)
-                {
-                    canvas.DrawLine(start, end, trendLinePaint);
-                    canvas.DrawCircle(start, 6, dataPointPaint);
-                    canvas.DrawCircle(end, 6, dataPointPaint);
-                    dataPointPaint.Style = SKPaintStyle.Fill;
-                    dataPointPaint.Color = SKColors.White;
-                    canvas.DrawCircle(start, 6, dataPointPaint);
-                    canvas.DrawCircle(end, 6, dataPointPaint);
-                }
-                else
-                {
-                    canvas.DrawCircle(end, 6, dataPointPaint);
-                    dataPointPaint.Style = SKPaintStyle.Fill;
-                    dataPointPaint.Color = SKColors.White;
-                    canvas.DrawCircle(end, 6, dataPointPaint);
-                }
-
-                start = end;
-
+            // 2nd line
+            canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS1a.ToArray(), trendLinePaint);
+            foreach (SKPoint point in _SKPointsVS1a)
+            {
+                dataPointPaint.Style = SKPaintStyle.Stroke;
+                dataPointPaint.Color = SKColors.Orange;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+                dataPointPaint.Style = SKPaintStyle.Fill;
+                dataPointPaint.Color = SKColors.White;
+                canvas.DrawCircle(point, 6, dataPointPaint);
             }
 
         }
 
-        private void CanvasView_Line2(object sender, SKPaintSurfaceEventArgs e)
+        private void TrendView2(object sender, SKPaintSurfaceEventArgs e)
         {
             SKSurface surface = e.Surface;
             SKCanvas canvas = surface.Canvas;
 
             DrawGraph(canvas, e);
-            dataPointPaint.Style = SKPaintStyle.Stroke;
-            dataPointPaint.Color = SKColors.Green;
-            trendLinePaint.Style = SKPaintStyle.Stroke;
-            trendLinePaint.Color = SKColors.Green;
 
             // draw trend line
-            canvas.DrawCircle(300, 100, 6, dataPointPaint);
-            canvas.DrawCircle(800, 100, 6, dataPointPaint);
-            canvas.DrawCircle(1200, 150, 6, dataPointPaint);
-            canvas.DrawCircle(1500, 50, 6, dataPointPaint);
-            dataPointPaint.Style = SKPaintStyle.Fill;
-            dataPointPaint.Color = SKColors.White;
-
-            canvas.DrawLine(300, 100, 800, 100, trendLinePaint);
-            canvas.DrawLine(800, 100, 1200, 150, trendLinePaint);
-            canvas.DrawLine(1200, 150, 1500, 50, trendLinePaint);
-
-            canvas.DrawCircle(300, 100, 6, dataPointPaint);
-            canvas.DrawCircle(800, 100, 6, dataPointPaint);
-            canvas.DrawCircle(1200, 150, 6, dataPointPaint);
-            canvas.DrawCircle(1500, 50, 6, dataPointPaint);
+            trendLinePaint.Color = SKColors.Green;
+            canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS2.ToArray(), trendLinePaint);
+            foreach (SKPoint point in _SKPointsVS2)
+            {
+                dataPointPaint.Style = SKPaintStyle.Stroke;
+                dataPointPaint.Color = SKColors.Green;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+                dataPointPaint.Style = SKPaintStyle.Fill;
+                dataPointPaint.Color = SKColors.White;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+            }
 
         }
 
-        private void CanvasView_Line3(object sender, SKPaintSurfaceEventArgs e)
+        private void TrendView3(object sender, SKPaintSurfaceEventArgs e)
         {
             SKSurface surface = e.Surface;
             SKCanvas canvas = surface.Canvas;
 
             DrawGraph(canvas, e);
-            dataPointPaint.Style = SKPaintStyle.Stroke;
-            dataPointPaint.Color = SKColors.Red;
-            trendLinePaint.Style = SKPaintStyle.Stroke;
-            trendLinePaint.Color = SKColors.Red;
-
+            
             // draw trend line
-            canvas.DrawCircle(300, 100, 6, dataPointPaint);
-            canvas.DrawCircle(800, 100, 6, dataPointPaint);
-            canvas.DrawCircle(1200, 150, 6, dataPointPaint);
-            canvas.DrawCircle(1500, 50, 6, dataPointPaint);
-            dataPointPaint.Style = SKPaintStyle.Fill;
-            dataPointPaint.Color = SKColors.White;
-
-            canvas.DrawLine(300, 100, 800, 100, trendLinePaint);
-            canvas.DrawLine(800, 100, 1200, 150, trendLinePaint);
-            canvas.DrawLine(1200, 150, 1500, 50, trendLinePaint);
-
-            canvas.DrawCircle(300, 100, 6, dataPointPaint);
-            canvas.DrawCircle(800, 100, 6, dataPointPaint);
-            canvas.DrawCircle(1200, 150, 6, dataPointPaint);
-            canvas.DrawCircle(1500, 50, 6, dataPointPaint);
+            trendLinePaint.Color = SKColors.Red;
+            canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS3.ToArray(), trendLinePaint);
+            foreach (SKPoint point in _SKPointsVS3)
+            {
+                dataPointPaint.Style = SKPaintStyle.Stroke;
+                dataPointPaint.Color = SKColors.Red;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+                dataPointPaint.Style = SKPaintStyle.Fill;
+                dataPointPaint.Color = SKColors.White;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+            }
 
         }
 
@@ -245,7 +263,7 @@ namespace SkiaSharpDemo
         {
             if(e.ActionType == SKTouchAction.Pressed)
             {
-                var touched = dataPoints.FirstOrDefault(d => Math.Abs(d.value - e.Location.Y) <= 6 && Math.Abs(d.time - e.Location.X) <= 6);
+                var touched = _VS1DataPoints.FirstOrDefault(d => Math.Abs(d.value - e.Location.Y) <= 6 && Math.Abs(d.time - e.Location.X) <= 6);
                 if(touched != null)
                 {
                     var message = $"Touched {touched.value}";

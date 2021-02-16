@@ -17,7 +17,7 @@
                             HorizontalOptions="Start"
                             HorizontalScrollBarVisibility="Never">
                     <skia:SKCanvasView x:Name="LineView"
-                                       PaintSurface="CanvasView_Line1"
+                                       PaintSurface="TrendView1"
                                        WidthRequest="2000"
                                        HorizontalOptions="Start"
                                        EnableTouchEvents="True"
@@ -41,7 +41,7 @@
                             HorizontalOptions="Start"
                             HorizontalScrollBarVisibility="Never">
                     <skia:SKCanvasView x:Name="LineView2"
-                                   PaintSurface="CanvasView_Line2"
+                                   PaintSurface="TrendView2"
                                    WidthRequest="2000"
                                    HorizontalOptions="Start"></skia:SKCanvasView>
                 </ScrollView>
@@ -62,7 +62,7 @@
                             HorizontalOptions="Start"
                             HorizontalScrollBarVisibility="Never">
                     <skia:SKCanvasView x:Name="LineView3"
-                                       PaintSurface="CanvasView_Line3"
+                                       PaintSurface="TrendView3"
                                        WidthRequest="2000"
                                        HorizontalOptions="Start"></skia:SKCanvasView>
                 </ScrollView>
