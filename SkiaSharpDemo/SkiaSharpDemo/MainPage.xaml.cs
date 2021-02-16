@@ -18,13 +18,29 @@ namespace SkiaSharpDemo
     {
         private readonly List<ScrollView> _trendViewScrollViews = new List<ScrollView>();
         int interval = 4;
-        List<DataPoint> _VS1DataPoints = new List<DataPoint>();
-        List<DataPoint> _VS2DataPoints = new List<DataPoint>();
-        List<SKPoint> _SKPointsVS1 = new List<SKPoint>();
-        List<SKPoint> _SKPointsVS1a = new List<SKPoint>();
-        List<SKPoint> _SKPointsVS2 = new List<SKPoint>();
-        List<DataPoint> _VS3DataPoints = new List<DataPoint>();
-        List<SKPoint> _SKPointsVS3 = new List<SKPoint>();
+        private List<DataPoint> _VS1DataPoints = new List<DataPoint>();
+        private List<DataPoint> _VS2DataPoints = new List<DataPoint>();
+        private List<DataPoint> _VS3DataPoints = new List<DataPoint>();
+        private List<DataPoint> _VS4DataPoints = new List<DataPoint>();
+        private List<DataPoint> _VS5DataPoints = new List<DataPoint>();
+        private List<DataPoint> _VS6DataPoints = new List<DataPoint>();
+        private List<DataPoint> _VS7DataPoints = new List<DataPoint>();
+        private List<DataPoint> _VS8DataPoints = new List<DataPoint>();
+
+        private List<SKPoint> _SKPointsVS1 = new List<SKPoint>();
+        private List<SKPoint> _SKPointsVS1a = new List<SKPoint>();
+        private List<SKPoint> _SKPointsVS2 = new List<SKPoint>();
+        private List<SKPoint> _SKPointsVS3 = new List<SKPoint>();
+        private List<SKPoint> _SKPointsVS4 = new List<SKPoint>();
+        private List<SKPoint> _SKPointsVS5 = new List<SKPoint>();
+        private List<SKPoint> _SKPointsVS6 = new List<SKPoint>();
+        private List<SKPoint> _SKPointsVS7 = new List<SKPoint>();
+        private List<SKPoint> _SKPointsVS8 = new List<SKPoint>();
+
+        double currentScale = 1;
+        double startScale = 1;
+        double xOffset = 0;
+        double yOffset = 0;
 
         #region SKPaints
 
@@ -70,10 +86,20 @@ namespace SkiaSharpDemo
             InitializeVS1();
             InitializeVS2();
             InitializeVS3();
+            InitializeVS4();
+            InitializeVS5();
+            InitializeVS6();
+            InitializeVS7();
+            InitializeVS8();
 
             _trendViewScrollViews.Add(Sv1);
             _trendViewScrollViews.Add(Sv2);
             _trendViewScrollViews.Add(Sv3);
+            _trendViewScrollViews.Add(Sv4);
+            _trendViewScrollViews.Add(Sv5);
+            _trendViewScrollViews.Add(Sv6);
+            _trendViewScrollViews.Add(Sv7);
+            _trendViewScrollViews.Add(Sv8);
 
             foreach (ScrollView view in _trendViewScrollViews)
             {
@@ -133,6 +159,86 @@ namespace SkiaSharpDemo
             {
                 _SKPointsVS3.Add(dataPoint.point);
                 _SKPointsVS3.Add(dataPoint.point);
+            }
+
+        }
+
+        private void InitializeVS4()
+        {
+            _VS4DataPoints.Add(new DataPoint(300, 100));
+            _VS4DataPoints.Add(new DataPoint(800, 100));
+            _VS4DataPoints.Add(new DataPoint(1200, 150));
+            _VS4DataPoints.Add(new DataPoint(1500, 50));
+
+            _SKPointsVS4.Add(_VS4DataPoints.FirstOrDefault().point);
+            foreach (var dataPoint in _VS4DataPoints.Skip(1))
+            {
+                _SKPointsVS4.Add(dataPoint.point);
+                _SKPointsVS4.Add(dataPoint.point);
+            }
+
+        }
+
+        private void InitializeVS5()
+        {
+            _VS5DataPoints.Add(new DataPoint(300, 100));
+            _VS5DataPoints.Add(new DataPoint(800, 100));
+            _VS5DataPoints.Add(new DataPoint(1200, 150));
+            _VS5DataPoints.Add(new DataPoint(1500, 50));
+
+            _SKPointsVS5.Add(_VS5DataPoints.FirstOrDefault().point);
+            foreach (var dataPoint in _VS5DataPoints.Skip(1))
+            {
+                _SKPointsVS5.Add(dataPoint.point);
+                _SKPointsVS5.Add(dataPoint.point);
+            }
+
+        }
+
+        private void InitializeVS6()
+        {
+            _VS6DataPoints.Add(new DataPoint(300, 100));
+            _VS6DataPoints.Add(new DataPoint(800, 100));
+            _VS6DataPoints.Add(new DataPoint(1200, 150));
+            _VS6DataPoints.Add(new DataPoint(1500, 50));
+
+            _SKPointsVS6.Add(_VS6DataPoints.FirstOrDefault().point);
+            foreach (var dataPoint in _VS6DataPoints.Skip(1))
+            {
+                _SKPointsVS6.Add(dataPoint.point);
+                _SKPointsVS6.Add(dataPoint.point);
+            }
+
+        }
+
+        private void InitializeVS7()
+        {
+            _VS7DataPoints.Add(new DataPoint(300, 100));
+            _VS7DataPoints.Add(new DataPoint(800, 100));
+            _VS7DataPoints.Add(new DataPoint(1200, 150));
+            _VS7DataPoints.Add(new DataPoint(1500, 50));
+
+            _SKPointsVS7.Add(_VS7DataPoints.FirstOrDefault().point);
+            foreach (var dataPoint in _VS7DataPoints.Skip(1))
+            {
+                _SKPointsVS7.Add(dataPoint.point);
+                _SKPointsVS7.Add(dataPoint.point);
+            }
+
+        }
+
+        private void InitializeVS8()
+        {
+            _VS8DataPoints.Add(new DataPoint(300, 100));
+            _VS8DataPoints.Add(new DataPoint(800, 100));
+            _VS8DataPoints.Add(new DataPoint(1200, 150));
+            _VS8DataPoints.Add(new DataPoint(1500, 50));
+
+            _SKPointsVS8.Add(_VS8DataPoints.FirstOrDefault().point);
+            foreach (var dataPoint in _VS8DataPoints.Skip(1))
+            {
+                _SKPointsVS8.Add(dataPoint.point);
+                _SKPointsVS8.Add(dataPoint.point);
             }
 
         }
@@ -237,6 +343,116 @@ namespace SkiaSharpDemo
 
         }
 
+        private void TrendView4(object sender, SKPaintSurfaceEventArgs e)
+        {
+            SKSurface surface = e.Surface;
+            SKCanvas canvas = surface.Canvas;
+
+            DrawGraph(canvas, e);
+            
+            // draw trend line
+            trendLinePaint.Color = SKColors.Red;
+            canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS4.ToArray(), trendLinePaint);
+            foreach (SKPoint point in _SKPointsVS4)
+            {
+                dataPointPaint.Style = SKPaintStyle.Stroke;
+                dataPointPaint.Color = SKColors.Red;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+                dataPointPaint.Style = SKPaintStyle.Fill;
+                dataPointPaint.Color = SKColors.White;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+            }
+
+        }
+
+        private void TrendView5(object sender, SKPaintSurfaceEventArgs e)
+        {
+            SKSurface surface = e.Surface;
+            SKCanvas canvas = surface.Canvas;
+
+            DrawGraph(canvas, e);
+            
+            // draw trend line
+            trendLinePaint.Color = SKColors.Red;
+            canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS5.ToArray(), trendLinePaint);
+            foreach (SKPoint point in _SKPointsVS5)
+            {
+                dataPointPaint.Style = SKPaintStyle.Stroke;
+                dataPointPaint.Color = SKColors.Red;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+                dataPointPaint.Style = SKPaintStyle.Fill;
+                dataPointPaint.Color = SKColors.White;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+            }
+
+        }
+
+        private void TrendView6(object sender, SKPaintSurfaceEventArgs e)
+        {
+            SKSurface surface = e.Surface;
+            SKCanvas canvas = surface.Canvas;
+
+            DrawGraph(canvas, e);
+            
+            // draw trend line
+            trendLinePaint.Color = SKColors.Red;
+            canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS6.ToArray(), trendLinePaint);
+            foreach (SKPoint point in _SKPointsVS6)
+            {
+                dataPointPaint.Style = SKPaintStyle.Stroke;
+                dataPointPaint.Color = SKColors.Red;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+                dataPointPaint.Style = SKPaintStyle.Fill;
+                dataPointPaint.Color = SKColors.White;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+            }
+
+        }
+
+        private void TrendView7(object sender, SKPaintSurfaceEventArgs e)
+        {
+            SKSurface surface = e.Surface;
+            SKCanvas canvas = surface.Canvas;
+
+            DrawGraph(canvas, e);
+            
+            // draw trend line
+            trendLinePaint.Color = SKColors.Red;
+            canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS7.ToArray(), trendLinePaint);
+            foreach (SKPoint point in _SKPointsVS7)
+            {
+                dataPointPaint.Style = SKPaintStyle.Stroke;
+                dataPointPaint.Color = SKColors.Red;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+                dataPointPaint.Style = SKPaintStyle.Fill;
+                dataPointPaint.Color = SKColors.White;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+            }
+
+        }
+
+        private void TrendView8(object sender, SKPaintSurfaceEventArgs e)
+        {
+            SKSurface surface = e.Surface;
+            SKCanvas canvas = surface.Canvas;
+
+            DrawGraph(canvas, e);
+            
+            // draw trend line
+            trendLinePaint.Color = SKColors.Red;
+            canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS8.ToArray(), trendLinePaint);
+            foreach (SKPoint point in _SKPointsVS8)
+            {
+                dataPointPaint.Style = SKPaintStyle.Stroke;
+                dataPointPaint.Color = SKColors.Red;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+                dataPointPaint.Style = SKPaintStyle.Fill;
+                dataPointPaint.Color = SKColors.White;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+            }
+
+        }
+
         private void DrawGraph(SKCanvas canvas, SKPaintSurfaceEventArgs e)
         {
             // draw graph Grid
@@ -273,5 +489,52 @@ namespace SkiaSharpDemo
 
             }
         }
+
+        void OnPinchUpdated (object sender, PinchGestureUpdatedEventArgs e)
+		{
+			if (e.Status == GestureStatus.Started) {
+				// Store the current scale factor applied to the wrapped user interface element,
+				// and zero the components for the center point of the translate transform.
+				startScale = Content.Scale;
+				Content.AnchorX = 0;
+				Content.AnchorY = 0;
+			}
+			if (e.Status == GestureStatus.Running) {
+				// Calculate the scale factor to be applied.
+				currentScale += (e.Scale - 1) * startScale;
+				currentScale = Math.Max (1, currentScale);
+
+				// The ScaleOrigin is in relative coordinates to the wrapped user interface element,
+				// so get the X pixel coordinate.
+				double renderedX = Content.X + xOffset;
+				double deltaX = renderedX / Width;
+				double deltaWidth = Width / (Content.Width * startScale);
+				double originX = (e.ScaleOrigin.X - deltaX) * deltaWidth;
+
+				// The ScaleOrigin is in relative coordinates to the wrapped user interface element,
+				// so get the Y pixel coordinate.
+				double renderedY = Content.Y + yOffset;
+				double deltaY = renderedY / Height;
+				double deltaHeight = Height / (Content.Height * startScale);
+				double originY = (e.ScaleOrigin.Y - deltaY) * deltaHeight;
+
+				// Calculate the transformed element pixel coordinates.
+				double targetX = xOffset - (originX * Content.Width) * (currentScale - startScale);
+				double targetY = yOffset - (originY * Content.Height) * (currentScale - startScale);
+
+				// Apply translation based on the change in origin.
+				Content.TranslationX = targetX.Clamp (-Content.Width * (currentScale - 1), 0);
+				Content.TranslationY = targetY.Clamp (-Content.Height * (currentScale - 1), 0);
+
+				// Apply scale factor
+				Content.Scale = currentScale;
+			}
+			if (e.Status == GestureStatus.Completed) {
+				// Store the translation delta's of the wrapped user interface element.
+				xOffset = Content.TranslationX;
+				yOffset = Content.TranslationY;
+			}
+		}
+
     }
 }
