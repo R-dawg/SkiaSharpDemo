@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using SkiaSharp;
@@ -126,8 +127,8 @@ namespace SkiaSharpDemo
         {
             _VS1DataPoints.Add(new DataPoint(300, 100));
             _VS1DataPoints.Add(new DataPoint(800, 100));
-            _VS1DataPoints.Add(new DataPoint(1200, 150));
-            _VS1DataPoints.Add(new DataPoint(1500, 50));
+            _VS1DataPoints.Add(new DataPoint(1200, 150, DataPoint.Abnormality.Abnormal));
+            _VS1DataPoints.Add(new DataPoint(1500, 50, DataPoint.Abnormality.Critical));
 
             _SKPointsVS1.Add(_VS1DataPoints.FirstOrDefault().point);
             foreach (var dataPoint in _VS1DataPoints.Skip(1))
@@ -282,6 +283,8 @@ namespace SkiaSharpDemo
             Sv1.ScrollToAsync(1200, 0, false);
         }
 
+        #region TrendViews
+
         private void TrendView1(object sender, SKPaintSurfaceEventArgs e)
         {
             SKSurface surface = e.Surface;
@@ -289,21 +292,62 @@ namespace SkiaSharpDemo
 
             DrawGraph(canvas, e);
 
-            // draw trend line
-            trendLinePaint.Color = SKColors.Orange;
-            canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS1.ToArray(), trendLinePaint);
-            foreach (SKPoint point in _SKPointsVS1)
+            var start = new SKPoint();
+            var startColor = new SKColor();
+            var endColor = new SKColor();
+            foreach(DataPoint dataPoint in _VS1DataPoints)
             {
-                // Draw the circle
-                dataPointPaint.Style = SKPaintStyle.Stroke;
-                dataPointPaint.Color = SKColors.Orange;
-                canvas.DrawCircle(point, 6, dataPointPaint);
-                dataPointPaint.Style = SKPaintStyle.Fill;
-                dataPointPaint.Color = SKColors.White;
-                canvas.DrawCircle(point, 6, dataPointPaint);
 
+                switch (dataPoint.range)
+                {
+                    case DataPoint.Abnormality.Critical:
+                        endColor = SKColors.Red;
+                        break;
+
+                    case DataPoint.Abnormality.Abnormal:
+                        endColor = SKColors.Orange;
+                        break;
+
+                    default:
+                        endColor = SKColors.Green;
+                        break;
+                }
+
+                var end = new SKPoint(dataPoint.time, dataPoint.value);
                 // Label the value
-                canvas.DrawText($"{180 - point.Y}", point.X, point.Y - 8, dataTextPaint);
+                dataTextPaint.Color = endColor;
+                canvas.DrawText($"{180 - end.Y}", end.X, end.Y - 8, dataTextPaint);
+
+                if(!start.IsEmpty)
+                {
+                    trendLinePaint.Color = endColor;
+                    canvas.DrawLine(start, end, trendLinePaint);
+
+                    dataPointPaint.Color = startColor;
+                    dataPointPaint.Style = SKPaintStyle.Stroke;
+                    canvas.DrawCircle(start, 6, dataPointPaint);
+
+                    dataPointPaint.Color = endColor;
+                    canvas.DrawCircle(end, 6, dataPointPaint);
+
+                    dataPointPaint.Style = SKPaintStyle.Fill;
+                    dataPointPaint.Color = SKColors.White;
+                    canvas.DrawCircle(start, 6, dataPointPaint);
+                    canvas.DrawCircle(end, 6, dataPointPaint);
+
+                    startColor = endColor;
+                }
+                else
+                {
+                    dataPointPaint.Color = endColor;
+                    canvas.DrawCircle(end, 6, dataPointPaint);
+                    dataPointPaint.Style = SKPaintStyle.Fill;
+                    dataPointPaint.Color = SKColors.White;
+                    canvas.DrawCircle(end, 6, dataPointPaint);
+                }
+
+                start = end;
+
             }
 
             // 2nd line
@@ -473,6 +517,9 @@ namespace SkiaSharpDemo
             }
 
         }
+
+        
+        #endregion
 
         private void DrawGraph(SKCanvas canvas, SKPaintSurfaceEventArgs e)
         {
