@@ -4,29 +4,41 @@
              xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              x:Class="SkiaSharpDemo.MainPage">
 
-    <!-- <ContentPage.Content> -->
+    <ContentPage.Content>
     <!--     <extensions:PinchToZoomContainer> -->
     <!--         <extensions:PinchToZoomContainer.Content> -->
                 <ScrollView Orientation="Vertical"
                         HeightRequest="2000">
-                    <StackLayout WidthRequest="800">
+                    <StackLayout WidthRequest="800"
+                                 x:Name="MainStack">
                         <StackLayout.GestureRecognizers>
                             <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
                         </StackLayout.GestureRecognizers>
                         <Label Text="Vital 1"></Label>
-                        <StackLayout Orientation="Horizontal">
+                        <StackLayout Orientation="Horizontal"
+                                     x:Name="VS1_Stack">
+                            <StackLayout.GestureRecognizers>
+                                <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
                             <ScrollView x:Name ="Sv1" 
-                                    Orientation="Both"
-                                    WidthRequest="800"
-                                    HeightRequest="200"
-                                    HorizontalOptions="Start"
-                                    HorizontalScrollBarVisibility="Never">
+                                        Orientation="Both"
+                                        WidthRequest="800"
+                                        HeightRequest="200"
+                                        HorizontalOptions="Start"
+                                        HorizontalScrollBarVisibility="Never">
+                                <ScrollView.GestureRecognizers>
+                                    <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
+                                </ScrollView.GestureRecognizers>
                                 <skia:SKCanvasView x:Name="LineView"
-                                               PaintSurface="TrendView1"
-                                               WidthRequest="2000"
-                                               HorizontalOptions="Start"
-                                               EnableTouchEvents="True"
-                                               Touch="LineView_Touch"></skia:SKCanvasView>
+                                                   PaintSurface="TrendView1"
+                                                   WidthRequest="2000"
+                                                   HorizontalOptions="Start"
+                                                   EnableTouchEvents="True"
+                                                   Touch="LineView_Touch">
+                                    <skia:SKCanvasView.GestureRecognizers>
+                                        <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
+                                    </skia:SKCanvasView.GestureRecognizers>
+                                </skia:SKCanvasView>
                             </ScrollView>
                             <Label Text="Latest value"
                                WidthRequest="200"
@@ -202,7 +214,7 @@
                 </ScrollView>
     <!--         </extensions:PinchToZoomContainer.Content> -->
     <!--     </extensions:PinchToZoomContainer> -->
-    <!-- </ContentPage.Content> -->
+    </ContentPage.Content>
 
 
 

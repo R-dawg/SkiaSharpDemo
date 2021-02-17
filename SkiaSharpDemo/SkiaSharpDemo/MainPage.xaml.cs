@@ -18,6 +18,9 @@ namespace SkiaSharpDemo
     {
         private readonly List<ScrollView> _trendViewScrollViews = new List<ScrollView>();
         int interval = 4;
+
+        // For now I creating custom DataPoint objects as well as SKPoints. We can pass an array of SKPoints to draw lines/points with less code
+        // or we can simply pass in the X/Y values to draw a single point (or a pair of X/Y values to draw a single line) 
         private List<DataPoint> _VS1DataPoints = new List<DataPoint>();
         private List<DataPoint> _VS2DataPoints = new List<DataPoint>();
         private List<DataPoint> _VS3DataPoints = new List<DataPoint>();
@@ -41,6 +44,34 @@ namespace SkiaSharpDemo
         double startScale = 1;
         double xOffset = 0;
         double yOffset = 0;
+
+        public MainPage()
+        {
+            InitializeComponent();
+            InitializeVS1();
+            InitializeVS2();
+            InitializeVS3();
+            InitializeVS4();
+            InitializeVS5();
+            InitializeVS6();
+            InitializeVS7();
+            InitializeVS8();
+
+            _trendViewScrollViews.Add(Sv1);
+            _trendViewScrollViews.Add(Sv2);
+            _trendViewScrollViews.Add(Sv3);
+            _trendViewScrollViews.Add(Sv4);
+            _trendViewScrollViews.Add(Sv5);
+            _trendViewScrollViews.Add(Sv6);
+            _trendViewScrollViews.Add(Sv7);
+            _trendViewScrollViews.Add(Sv8);
+
+            foreach (ScrollView view in _trendViewScrollViews)
+            {
+                view.PropertyChanging += GraphPropertyChanging;
+            }
+
+        }
 
         #region SKPaints
 
@@ -77,37 +108,20 @@ namespace SkiaSharpDemo
             IsAntialias = true
         };
 
-        #endregion
-        
-
-        public MainPage()
+        private SKPaint dataTextPaint = new SKPaint()
         {
-            InitializeComponent();
-            InitializeVS1();
-            InitializeVS2();
-            InitializeVS3();
-            InitializeVS4();
-            InitializeVS5();
-            InitializeVS6();
-            InitializeVS7();
-            InitializeVS8();
+            Style = SKPaintStyle.Stroke,
+            Color = SKColors.Orange,
+            TextSize = 10,
+            StrokeWidth = 1,
+            IsAntialias = true
+        };
 
-            _trendViewScrollViews.Add(Sv1);
-            _trendViewScrollViews.Add(Sv2);
-            _trendViewScrollViews.Add(Sv3);
-            _trendViewScrollViews.Add(Sv4);
-            _trendViewScrollViews.Add(Sv5);
-            _trendViewScrollViews.Add(Sv6);
-            _trendViewScrollViews.Add(Sv7);
-            _trendViewScrollViews.Add(Sv8);
+        #endregion
 
-            foreach (ScrollView view in _trendViewScrollViews)
-            {
-                view.PropertyChanging += GraphPropertyChanging;
-            }
+        #region Initialize
 
-        }
-
+        
         private void InitializeVS1()
         {
             _VS1DataPoints.Add(new DataPoint(300, 100));
@@ -243,6 +257,9 @@ namespace SkiaSharpDemo
 
         }
 
+
+        #endregion
+
         private void GraphPropertyChanging(object sender, PropertyChangingEventArgs e)
         {
             var scrollView = (ScrollView) sender;
@@ -277,12 +294,16 @@ namespace SkiaSharpDemo
             canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS1.ToArray(), trendLinePaint);
             foreach (SKPoint point in _SKPointsVS1)
             {
+                // Draw the circle
                 dataPointPaint.Style = SKPaintStyle.Stroke;
                 dataPointPaint.Color = SKColors.Orange;
                 canvas.DrawCircle(point, 6, dataPointPaint);
                 dataPointPaint.Style = SKPaintStyle.Fill;
                 dataPointPaint.Color = SKColors.White;
                 canvas.DrawCircle(point, 6, dataPointPaint);
+
+                // Label the value
+                canvas.DrawText($"{180 - point.Y}", point.X, point.Y - 8, dataTextPaint);
             }
 
             // 2nd line
