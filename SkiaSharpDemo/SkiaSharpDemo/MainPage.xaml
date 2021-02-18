@@ -35,11 +35,7 @@
                                                    WidthRequest="2000"
                                                    HorizontalOptions="Start"
                                                    EnableTouchEvents="True"
-                                                   Touch="LineView_Touch"
-                                                   effects:TooltipEffect.Position="Bottom"
-                                                   effects:TooltipEffect.BackgroundColor="Navy"
-                                                   effects:TooltipEffect.Text="Here is a sample text for this tool tip that can help us later, here is more text to showcase the tooltip top" 
-                                                   effects:TooltipEffect.HasTooltip="True">
+                                                   Touch="LineView_Touch">
                                     <skia:SKCanvasView.GestureRecognizers>
                                         <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
                                     </skia:SKCanvasView.GestureRecognizers>

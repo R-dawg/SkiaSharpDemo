@@ -21,6 +21,7 @@ namespace SkiaSharpDemo
         private readonly List<ScrollView> _trendViewScrollViews = new List<ScrollView>();
         int interval = 4;
         private string message = "test";
+        private bool _loadingGraphs = false;
 
         // For now I creating custom DataPoint objects as well as SKPoints. We can pass an array of SKPoints to draw lines/points with less code
         // or we can simply pass in the X/Y values to draw a single point (or a pair of X/Y values to draw a single line) 
@@ -273,16 +274,25 @@ namespace SkiaSharpDemo
                     if (scrollView != view)
                     {
                         view.PropertyChanging -= GraphPropertyChanging;
-                        view.ScrollToAsync(scrollView.ScrollX, scrollView.ScrollY, false);
+                        if(_loadingGraphs)
+                            view.ScrollToAsync(1200, 0, false);
+                        else
+                            view.ScrollToAsync(scrollView.ScrollX, scrollView.ScrollY, false);
                         view.PropertyChanging += GraphPropertyChanging;
                     }
                 }
+
+                _loadingGraphs = false;
             }
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
-            Sv1.ScrollToAsync(1200, 0, false);
+            base.OnAppearing();
+            await Task.Yield();
+
+            _loadingGraphs = true;
+            await Sv1.ScrollToAsync(1200, 0, false);
         }
 
         #region TrendViews
@@ -553,17 +563,17 @@ namespace SkiaSharpDemo
                 var touched = _VS1DataPoints.FirstOrDefault(d => Math.Abs(d.value - e.Location.Y) <= 6 && Math.Abs(d.time - e.Location.X) <= 6);
                 if(touched != null)
                 {
-                    foreach (var c in VS1_Stack.Children)
-                    {
-                        if (TooltipEffect.GetHasTooltip(c))
-                        {
-                            TooltipEffect.SetHasTooltip(c, false);
-                            TooltipEffect.SetHasTooltip(c, true);
-                        }
-                    }
-                    // var message = $"Touched {180 -touched.value}";
-                    // DisplayAlert("Datapoint clicked", message, "Got it!");
-                    // Debug.WriteLine($"Touched {touched.value}");
+                    // foreach (var c in VS1_Stack.Children)
+                    // {
+                    //     if (TooltipEffect.GetHasTooltip(c))
+                    //     {
+                    //         TooltipEffect.SetHasTooltip(c, false);
+                    //         TooltipEffect.SetHasTooltip(c, true);
+                    //     }
+                    // }
+                    var message = $"Touched {180 -touched.value}";
+                    DisplayAlert("Datapoint clicked", message, "Got it!");
+                    Debug.WriteLine($"Touched {touched.value}");
                 }
 
             }
