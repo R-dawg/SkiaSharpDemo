@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using SkiaSharpDemo.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Shapes;
 using Xamarin.Forms.Xaml;
@@ -19,6 +20,7 @@ namespace SkiaSharpDemo
     {
         private readonly List<ScrollView> _trendViewScrollViews = new List<ScrollView>();
         int interval = 4;
+        private string message = "test";
 
         // For now I creating custom DataPoint objects as well as SKPoints. We can pass an array of SKPoints to draw lines/points with less code
         // or we can simply pass in the X/Y values to draw a single point (or a pair of X/Y values to draw a single line) 
@@ -356,6 +358,7 @@ namespace SkiaSharpDemo
             {
                 dataPointPaint.Style = SKPaintStyle.Stroke;
                 dataPointPaint.Color = SKColors.Orange;
+                trendLinePaint.Color = SKColors.Green;
                 canvas.DrawCircle(point, 6, dataPointPaint);
                 dataPointPaint.Style = SKPaintStyle.Fill;
                 dataPointPaint.Color = SKColors.White;
@@ -550,9 +553,17 @@ namespace SkiaSharpDemo
                 var touched = _VS1DataPoints.FirstOrDefault(d => Math.Abs(d.value - e.Location.Y) <= 6 && Math.Abs(d.time - e.Location.X) <= 6);
                 if(touched != null)
                 {
-                    var message = $"Touched {touched.value}";
-                    DisplayAlert("Datapoint clicked", message, "Got it!");
-                    Console.WriteLine($"Touched {touched.value}");
+                    foreach (var c in VS1_Stack.Children)
+                    {
+                        if (TooltipEffect.GetHasTooltip(c))
+                        {
+                            TooltipEffect.SetHasTooltip(c, false);
+                            TooltipEffect.SetHasTooltip(c, true);
+                        }
+                    }
+                    // var message = $"Touched {180 -touched.value}";
+                    // DisplayAlert("Datapoint clicked", message, "Got it!");
+                    // Debug.WriteLine($"Touched {touched.value}");
                 }
 
             }

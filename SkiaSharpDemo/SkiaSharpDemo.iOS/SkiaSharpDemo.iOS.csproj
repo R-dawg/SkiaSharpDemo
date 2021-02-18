@@ -63,6 +63,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Effects\TooltipEffect.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
@@ -123,6 +124,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="EasyTipView">
+      <Version>1.0.1</Version>
+    </PackageReference>
     <PackageReference Include="SkiaSharp.Views.Forms">
       <Version>2.80.2</Version>
     </PackageReference>
@@ -136,4 +140,5 @@
       <Name>SkiaSharpDemo</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
 </Project>
