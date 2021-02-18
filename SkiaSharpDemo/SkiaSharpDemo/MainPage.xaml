@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:effects="clr-namespace:SkiaSharpDemo.Effects;assembly=SkiaSharpDemo" 
+             xmlns:shape="clr-namespace:Xamarin.Forms.Shapes;assembly=Xamarin.Forms.Core"
              x:Class="SkiaSharpDemo.MainPage">
 
     <ContentPage.Content>
@@ -14,6 +15,9 @@
                    Text="Drawers go here"
                    TextColor="Blue"></Label>
             <StackLayout Orientation="Vertical">
+                <!-- <shape:Rectangle Fill="lightblue" -->
+                <!--            WidthRequest="1000" -->
+                <!--            HeightRequest="200"/> -->
                 <ScrollView Orientation="Vertical"
                             HeightRequest="2000">
                     <StackLayout WidthRequest="800"
@@ -30,7 +34,7 @@
                             </StackLayout.GestureRecognizers>
                             <ScrollView x:Name ="Sv1" 
                                         Orientation="Both"
-                                        WidthRequest="1000"
+                                        WidthRequest="850"
                                         HeightRequest="200"
                                         HorizontalOptions="Start"
                                         HorizontalScrollBarVisibility="Never">
@@ -67,7 +71,7 @@
                         <StackLayout Orientation="Horizontal">
                             <ScrollView x:Name ="Sv2"
                                     Orientation="Both"
-                                    WidthRequest="1000"
+                                    WidthRequest="850"
                                     HeightRequest="200"
                                     HorizontalOptions="Start"
                                     HorizontalScrollBarVisibility="Never">
@@ -92,7 +96,7 @@
                         <StackLayout Orientation="Horizontal">
                             <ScrollView x:Name ="Sv3"
                                     Orientation="Both"
-                                    WidthRequest="1000"
+                                    WidthRequest="850"
                                     HeightRequest="200"
                                     HorizontalOptions="Start"
                                     HorizontalScrollBarVisibility="Never">
@@ -117,7 +121,7 @@
                         <StackLayout Orientation="Horizontal">
                             <ScrollView x:Name ="Sv4"
                                         Orientation="Both"
-                                        WidthRequest="1000"
+                                        WidthRequest="850"
                                         HeightRequest="200"
                                         HorizontalOptions="Start"
                                         HorizontalScrollBarVisibility="Never">
@@ -141,7 +145,7 @@
                         <StackLayout Orientation="Horizontal">
                             <ScrollView x:Name ="Sv5"
                                         Orientation="Both"
-                                        WidthRequest="1000"
+                                        WidthRequest="850"
                                         HeightRequest="200"
                                         HorizontalOptions="Start"
                                         HorizontalScrollBarVisibility="Never">
@@ -165,7 +169,7 @@
                         <StackLayout Orientation="Horizontal">
                             <ScrollView x:Name ="Sv6"
                                         Orientation="Both"
-                                        WidthRequest="1000"
+                                        WidthRequest="850"
                                         HeightRequest="200"
                                         HorizontalOptions="Start"
                                         HorizontalScrollBarVisibility="Never">
@@ -189,7 +193,7 @@
                         <StackLayout Orientation="Horizontal">
                             <ScrollView x:Name ="Sv7"
                                         Orientation="Both"
-                                        WidthRequest="1000"
+                                        WidthRequest="850"
                                         HeightRequest="200"
                                         HorizontalOptions="Start"
                                         HorizontalScrollBarVisibility="Never">
@@ -213,7 +217,7 @@
                         <StackLayout Orientation="Horizontal">
                             <ScrollView x:Name ="Sv8"
                                         Orientation="Both"
-                                        WidthRequest="1000"
+                                        WidthRequest="850"
                                         HeightRequest="200"
                                         HorizontalOptions="Start"
                                         HorizontalScrollBarVisibility="Never">
