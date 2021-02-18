@@ -158,6 +158,8 @@ namespace SkiaSharpDemo
             _VS2DataPoints.Add(new DataPoint(800, 100));
             _VS2DataPoints.Add(new DataPoint(1200, 150));
             _VS2DataPoints.Add(new DataPoint(1500, 50));
+            _VS2DataPoints.Add(new DataPoint(1710, 120));
+
 
             _SKPointsVS2.Add(_VS2DataPoints.FirstOrDefault().point);
             foreach (var dataPoint in _VS2DataPoints.Skip(1))
@@ -174,6 +176,8 @@ namespace SkiaSharpDemo
             _VS3DataPoints.Add(new DataPoint(800, 100));
             _VS3DataPoints.Add(new DataPoint(1200, 150));
             _VS3DataPoints.Add(new DataPoint(1500, 50));
+            _VS3DataPoints.Add(new DataPoint(1710, 120));
+
 
             _SKPointsVS3.Add(_VS3DataPoints.FirstOrDefault().point);
             foreach (var dataPoint in _VS3DataPoints.Skip(1))
@@ -190,6 +194,8 @@ namespace SkiaSharpDemo
             _VS4DataPoints.Add(new DataPoint(800, 100));
             _VS4DataPoints.Add(new DataPoint(1200, 150));
             _VS4DataPoints.Add(new DataPoint(1500, 50));
+            _VS4DataPoints.Add(new DataPoint(1710, 120));
+
 
             _SKPointsVS4.Add(_VS4DataPoints.FirstOrDefault().point);
             foreach (var dataPoint in _VS4DataPoints.Skip(1))
@@ -206,6 +212,8 @@ namespace SkiaSharpDemo
             _VS5DataPoints.Add(new DataPoint(800, 100));
             _VS5DataPoints.Add(new DataPoint(1200, 150));
             _VS5DataPoints.Add(new DataPoint(1500, 50));
+            _VS5DataPoints.Add(new DataPoint(1710, 120));
+
 
             _SKPointsVS5.Add(_VS5DataPoints.FirstOrDefault().point);
             foreach (var dataPoint in _VS5DataPoints.Skip(1))
@@ -222,6 +230,8 @@ namespace SkiaSharpDemo
             _VS6DataPoints.Add(new DataPoint(800, 100));
             _VS6DataPoints.Add(new DataPoint(1200, 150));
             _VS6DataPoints.Add(new DataPoint(1500, 50));
+            _VS6DataPoints.Add(new DataPoint(1710, 120));
+
 
             _SKPointsVS6.Add(_VS6DataPoints.FirstOrDefault().point);
             foreach (var dataPoint in _VS6DataPoints.Skip(1))
@@ -238,6 +248,8 @@ namespace SkiaSharpDemo
             _VS7DataPoints.Add(new DataPoint(800, 100));
             _VS7DataPoints.Add(new DataPoint(1200, 150));
             _VS7DataPoints.Add(new DataPoint(1500, 50));
+            _VS7DataPoints.Add(new DataPoint(1710, 120));
+
 
             _SKPointsVS7.Add(_VS7DataPoints.FirstOrDefault().point);
             foreach (var dataPoint in _VS7DataPoints.Skip(1))
@@ -254,6 +266,8 @@ namespace SkiaSharpDemo
             _VS8DataPoints.Add(new DataPoint(800, 100));
             _VS8DataPoints.Add(new DataPoint(1200, 150));
             _VS8DataPoints.Add(new DataPoint(1500, 50));
+            _VS8DataPoints.Add(new DataPoint(1710, 120));
+
 
             _SKPointsVS8.Add(_VS8DataPoints.FirstOrDefault().point);
             foreach (var dataPoint in _VS8DataPoints.Skip(1))
@@ -316,6 +330,20 @@ namespace SkiaSharpDemo
             var start = new SKPoint();
             var startColor = new SKColor();
             var endColor = new SKColor();
+
+            // Top line just to show 2 lines
+            canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS1a.ToArray(), trendLinePaint);
+            foreach (SKPoint point in _SKPointsVS1a)
+            {
+                dataPointPaint.Style = SKPaintStyle.Stroke;
+                dataPointPaint.Color = SKColors.Orange;
+                trendLinePaint.Color = SKColors.Green;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+                dataPointPaint.Style = SKPaintStyle.Fill;
+                dataPointPaint.Color = SKColors.White;
+                canvas.DrawCircle(point, 6, dataPointPaint);
+            }
+
             foreach(DataPoint dataPoint in _VS1DataPoints)
             {
 
@@ -369,19 +397,6 @@ namespace SkiaSharpDemo
 
                 start = end;
 
-            }
-
-            // 2nd line
-            canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS1a.ToArray(), trendLinePaint);
-            foreach (SKPoint point in _SKPointsVS1a)
-            {
-                dataPointPaint.Style = SKPaintStyle.Stroke;
-                dataPointPaint.Color = SKColors.Orange;
-                trendLinePaint.Color = SKColors.Green;
-                canvas.DrawCircle(point, 6, dataPointPaint);
-                dataPointPaint.Style = SKPaintStyle.Fill;
-                dataPointPaint.Color = SKColors.White;
-                canvas.DrawCircle(point, 6, dataPointPaint);
             }
 
         }
@@ -438,7 +453,8 @@ namespace SkiaSharpDemo
             DrawGraph(canvas, e);
             
             // draw trend line
-            trendLinePaint.Color = SKColors.Red;
+            trendLinePaint.Color = SKColor.Parse("#f7a663");
+            dataPointPaint.Color = SKColor.Parse("#f7a663");
             canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS4.ToArray(), trendLinePaint);
             foreach (SKPoint point in _SKPointsVS4)
             {
