@@ -132,6 +132,7 @@ namespace SkiaSharpDemo
             _VS1DataPoints.Add(new DataPoint(800, 100));
             _VS1DataPoints.Add(new DataPoint(1200, 150, DataPoint.Abnormality.Abnormal));
             _VS1DataPoints.Add(new DataPoint(1500, 50, DataPoint.Abnormality.Critical));
+            _VS1DataPoints.Add(new DataPoint(1710, 140, DataPoint.Abnormality.Abnormal));
 
             _SKPointsVS1.Add(_VS1DataPoints.FirstOrDefault().point);
             foreach (var dataPoint in _VS1DataPoints.Skip(1))
@@ -147,6 +148,8 @@ namespace SkiaSharpDemo
             _SKPointsVS1a.Add(new SKPoint(1200, 110));
             _SKPointsVS1a.Add(new SKPoint(1200, 110));
             _SKPointsVS1a.Add(new SKPoint(1500, 15));
+            _SKPointsVS1a.Add(new SKPoint(1500, 15));
+            _SKPointsVS1a.Add(new SKPoint(1710, 30));
         }
 
         private void InitializeVS2()
@@ -274,10 +277,16 @@ namespace SkiaSharpDemo
                     if (scrollView != view)
                     {
                         view.PropertyChanging -= GraphPropertyChanging;
-                        if(_loadingGraphs)
+                        if (_loadingGraphs)
+                        {
                             view.ScrollToAsync(1200, 0, false);
+                        }
+
                         else
+                        {
                             view.ScrollToAsync(scrollView.ScrollX, scrollView.ScrollY, false);
+                        }
+                            
                         view.PropertyChanging += GraphPropertyChanging;
                     }
                 }
@@ -573,7 +582,7 @@ namespace SkiaSharpDemo
                     // }
                     var message = $"Touched {180 -touched.value}";
                     DisplayAlert("Datapoint clicked", message, "Got it!");
-                    Debug.WriteLine($"Touched {touched.value}");
+                    Debug.WriteLine($"Touched {touched.value} and a time would go here");
                 }
 
             }

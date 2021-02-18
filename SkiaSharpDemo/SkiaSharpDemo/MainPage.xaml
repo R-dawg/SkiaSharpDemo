@@ -6,10 +6,15 @@
              x:Class="SkiaSharpDemo.MainPage">
 
     <ContentPage.Content>
-    <!--     <extensions:PinchToZoomContainer> -->
-    <!--         <extensions:PinchToZoomContainer.Content> -->
+        <StackLayout Orientation="Horizontal">
+            <Label HeightRequest="8000"
+                   WidthRequest="300"
+                   BackgroundColor="DarkGray"
+                   Text="Drawers go here"
+                   TextColor="Blue"></Label>
+            <StackLayout Orientation="Vertical">
                 <ScrollView Orientation="Vertical"
-                        HeightRequest="2000">
+                            HeightRequest="2000">
                     <StackLayout WidthRequest="800"
                                  x:Name="MainStack">
                         <StackLayout.GestureRecognizers>
@@ -23,30 +28,36 @@
                             </StackLayout.GestureRecognizers>
                             <ScrollView x:Name ="Sv1" 
                                         Orientation="Both"
-                                        WidthRequest="800"
+                                        WidthRequest="1000"
                                         HeightRequest="200"
                                         HorizontalOptions="Start"
                                         HorizontalScrollBarVisibility="Never">
-                                <ScrollView.GestureRecognizers>
-                                    <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
-                                </ScrollView.GestureRecognizers>
-                                <skia:SKCanvasView x:Name="LineView"
-                                                   PaintSurface="TrendView1"
-                                                   WidthRequest="2000"
-                                                   HorizontalOptions="Start"
-                                                   EnableTouchEvents="True"
-                                                   Touch="LineView_Touch">
-                                    <skia:SKCanvasView.GestureRecognizers>
+                                    <ScrollView.GestureRecognizers>
                                         <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
-                                    </skia:SKCanvasView.GestureRecognizers>
-                                </skia:SKCanvasView>
+                                    </ScrollView.GestureRecognizers>
+                                <StackLayout Orientation="Horizontal"
+                                             HeightRequest="200">
+                                    <skia:SKCanvasView x:Name="LineView"
+                                                       PaintSurface="TrendView1"
+                                                       WidthRequest="1700"
+                                                       HorizontalOptions="Start"
+                                                       EnableTouchEvents="True"
+                                                       Touch="LineView_Touch">
+                                        <skia:SKCanvasView.GestureRecognizers>
+                                            <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
+                                        </skia:SKCanvasView.GestureRecognizers>
+                                    </skia:SKCanvasView>
+                                    <Label Text="Latest value"
+                                           WidthRequest="200"
+                                           HeightRequest="180"
+                                           BackgroundColor="Orange"
+                                           TextColor="White"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalTextAlignment="Center"></Label>
+                            
+                                </StackLayout>
                             </ScrollView>
-                            <Label Text="Latest value"
-                               WidthRequest="200"
-                               BackgroundColor="Orange"
-                               TextColor="White"
-                               HorizontalTextAlignment="Center"
-                               VerticalTextAlignment="Center"></Label>
+                            
                         </StackLayout>
 
 
@@ -213,8 +224,10 @@
                   StrokeLineJoin="Round" />
                     </StackLayout>
                 </ScrollView>
-    <!--         </extensions:PinchToZoomContainer.Content> -->
-    <!--     </extensions:PinchToZoomContainer> -->
+            </StackLayout>
+            
+        </StackLayout>
+        
     </ContentPage.Content>
 
 
