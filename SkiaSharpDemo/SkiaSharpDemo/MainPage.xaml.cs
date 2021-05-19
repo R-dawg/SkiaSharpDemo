@@ -22,6 +22,7 @@ namespace SkiaSharpDemo
         int interval = 4;
         private string message = "test";
         private bool _loadingGraphs = false;
+        private float _viewScale;
 
         // For now I am creating custom DataPoint objects as well as SKPoints. We can pass an array of SKPoints to draw lines/points with less code
         // or we can simply pass in the X/Y values to draw a single point (or a pair of X/Y values to draw a single line) 
@@ -132,7 +133,7 @@ namespace SkiaSharpDemo
             _VS1DataPoints.Add(new DataPoint(300, 100));
             _VS1DataPoints.Add(new DataPoint(500, 150, DataPoint.Abnormality.Abnormal));
             _VS1DataPoints.Add(new DataPoint(700, 50, DataPoint.Abnormality.Critical));
-            _VS1DataPoints.Add(new DataPoint(840, 140, DataPoint.Abnormality.Abnormal));
+            _VS1DataPoints.Add(new DataPoint(800, 140, DataPoint.Abnormality.Abnormal));
 
             // Creating the SKPoints is not really necessary. I have done this so that I can easily change techniques for drawing lines/points.
             // SKPoints are just more convenient because we don't have to provide the x and y coordinates separately
@@ -290,6 +291,7 @@ namespace SkiaSharpDemo
         {
             SKSurface surface = e.Surface;
             SKCanvas canvas = surface.Canvas;
+            _viewScale = (float)e.Info.Width/800;
 
             DrawGraph(canvas, e);
 
@@ -614,7 +616,7 @@ namespace SkiaSharpDemo
 
         void LineView_Touch(System.Object sender, SkiaSharp.Views.Forms.SKTouchEventArgs e)
         {
-            if(e.ActionType == SKTouchAction.Pressed)
+            if(e.ActionType == SKTouchAction.Pressed || e.ActionType == SKTouchAction.Moved)
             {
                 var touched = _VS1DataPoints.FirstOrDefault(d => Math.Abs(d.time - e.Location.X) <= 6);
                 // if(touched != null)
@@ -629,8 +631,9 @@ namespace SkiaSharpDemo
                     // }
                     var screenWidth = absolute.Width;
                     var graphWidth = LineView.Width;
-                    bar.X1 = e.Location.X;
-                    bar.X2 = e.Location.X;
+                    bar.X1 = e.Location.X/_viewScale;
+                    bar.X2 = e.Location.X/_viewScale;
+                    Debug.WriteLine($"Touched {e.Location.X} --> {bar.X1}");
                     // var message = $"Touched {touched.value} and a time would go here for now it is the X-axis: {touched.time/50}";
                     // DisplayAlert("Datapoint clicked", message, "Got it!");
                     // Debug.WriteLine($"Touched {touched.value}");
