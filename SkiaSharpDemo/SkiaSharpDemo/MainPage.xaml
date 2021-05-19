@@ -22,11 +22,13 @@
                             HeightRequest="2000">
                     <StackLayout WidthRequest="800"
                                  x:Name="VitalsStack">
-                        <StackLayout.GestureRecognizers>
+                        <Label Text="TEST"></Label>
+                        <AbsoluteLayout x:Name="absolute">
+                            <AbsoluteLayout.GestureRecognizers>
                             <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
-                        </StackLayout.GestureRecognizers>
+                            </AbsoluteLayout.GestureRecognizers>
 
-                        <Label Text="Vital 1"></Label>
+                        
                         <StackLayout Orientation="Horizontal"
                                      x:Name="VS1Stack">
                             <StackLayout.GestureRecognizers>
@@ -34,7 +36,7 @@
                             </StackLayout.GestureRecognizers>
                             <ScrollView x:Name ="Sv1" 
                                         Orientation="Both"
-                                        WidthRequest="850"
+                                        WidthRequest="800"
                                         HeightRequest="200"
                                         HorizontalOptions="Start"
                                         HorizontalScrollBarVisibility="Never">
@@ -45,7 +47,7 @@
                                              HeightRequest="200">
                                     <skia:SKCanvasView x:Name="LineView"
                                                        PaintSurface="TrendView1"
-                                                       WidthRequest="1700"
+                                                       WidthRequest="800"
                                                        HorizontalOptions="Start"
                                                        EnableTouchEvents="True"
                                                        Touch="LineView_Touch">
@@ -53,22 +55,22 @@
                                             <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
                                         </skia:SKCanvasView.GestureRecognizers>
                                     </skia:SKCanvasView>
-                                    <Label Text="Latest value"
-                                           WidthRequest="200"
-                                           HeightRequest="180"
-                                           BackgroundColor="Orange"
-                                           TextColor="White"
-                                           HorizontalTextAlignment="Center"
-                                           VerticalTextAlignment="Center"></Label>
+                                    <!-- <Label Text="Latest value" -->
+                                    <!--        WidthRequest="200" -->
+                                    <!--        HeightRequest="180" -->
+                                    <!--        BackgroundColor="Orange" -->
+                                    <!--        TextColor="White" -->
+                                    <!--        HorizontalTextAlignment="Center" -->
+                                    <!--        VerticalTextAlignment="Center"></Label> -->
                             
                                 </StackLayout>
                             </ScrollView>
                             
                         </StackLayout>
+                            
 
-
-                        <Label Text="Vital 2"></Label>
-                        <StackLayout Orientation="Horizontal">
+                        
+                        <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,200">
                             <ScrollView x:Name ="Sv2"
                                     Orientation="Both"
                                     WidthRequest="850"
@@ -91,9 +93,8 @@
                                 </StackLayout>
                             </ScrollView>
                         </StackLayout>
-
-                        <Label Text="Vital 3"></Label>
-                        <StackLayout Orientation="Horizontal">
+                         
+                        <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,800">
                             <ScrollView x:Name ="Sv3"
                                     Orientation="Both"
                                     WidthRequest="850"
@@ -114,128 +115,137 @@
                                            VerticalTextAlignment="Center"></Label>
                                 </StackLayout>
                             </ScrollView>
-                            
+                        
                         </StackLayout>
 
-                        <Label Text="Vital 4"></Label>
-                        <StackLayout Orientation="Horizontal">
-                            <ScrollView x:Name ="Sv4"
-                                        Orientation="Both"
-                                        WidthRequest="850"
-                                        HeightRequest="200"
-                                        HorizontalOptions="Start"
-                                        HorizontalScrollBarVisibility="Never">
-                                <StackLayout Orientation="Horizontal"
-                                             HeightRequest="200">
-                                    <skia:SKCanvasView x:Name="LineView4"
-                                                       PaintSurface="TrendView4"
-                                                       WidthRequest="1700"
-                                                       HorizontalOptions="Start"></skia:SKCanvasView>
-                                    <Label Text="Latest value"
-                                           WidthRequest="200"
-                                           BackgroundColor="#f7a663"
-                                           TextColor="White"
-                                           HorizontalTextAlignment="Center"
-                                           VerticalTextAlignment="Center"></Label>
-                                </StackLayout>
-                            </ScrollView>
-                        </StackLayout>
-
-                        <Label Text="Vital 5"></Label>
-                        <StackLayout Orientation="Horizontal">
-                            <ScrollView x:Name ="Sv5"
-                                        Orientation="Both"
-                                        WidthRequest="850"
-                                        HeightRequest="200"
-                                        HorizontalOptions="Start"
-                                        HorizontalScrollBarVisibility="Never">
-                                <StackLayout Orientation="Horizontal"
-                                             HeightRequest="200">
-                                    <skia:SKCanvasView x:Name="LineView5"
-                                                       PaintSurface="TrendView5"
-                                                       WidthRequest="1700"
-                                                       HorizontalOptions="Start"></skia:SKCanvasView>
-                                    <Label Text="Latest value"
-                                           WidthRequest="200"
-                                           BackgroundColor="Red"
-                                           TextColor="White"
-                                           HorizontalTextAlignment="Center"
-                                           VerticalTextAlignment="Center"></Label>
-                                </StackLayout>
-                            </ScrollView>
-                        </StackLayout>
-
-                        <Label Text="Vital 6"></Label>
-                        <StackLayout Orientation="Horizontal">
-                            <ScrollView x:Name ="Sv6"
-                                        Orientation="Both"
-                                        WidthRequest="850"
-                                        HeightRequest="200"
-                                        HorizontalOptions="Start"
-                                        HorizontalScrollBarVisibility="Never">
-                                <StackLayout Orientation="Horizontal"
-                                             HeightRequest="200">
-                                    <skia:SKCanvasView x:Name="LineView6"
-                                                       PaintSurface="TrendView6"
-                                                       WidthRequest="1700"
-                                                       HorizontalOptions="Start"></skia:SKCanvasView>
-                                    <Label Text="Latest value"
-                                           WidthRequest="200"
-                                           BackgroundColor="Red"
-                                           TextColor="White"
-                                           HorizontalTextAlignment="Center"
-                                           VerticalTextAlignment="Center"></Label>
-                                </StackLayout>
-                            </ScrollView>
-                        </StackLayout>
-
-                        <Label Text="Vital 7"></Label>
-                        <StackLayout Orientation="Horizontal">
-                            <ScrollView x:Name ="Sv7"
-                                        Orientation="Both"
-                                        WidthRequest="850"
-                                        HeightRequest="200"
-                                        HorizontalOptions="Start"
-                                        HorizontalScrollBarVisibility="Never">
-                                <StackLayout Orientation="Horizontal"
-                                             HeightRequest="200">
-                                    <skia:SKCanvasView x:Name="LineView7"
-                                                       PaintSurface="TrendView7"
-                                                       WidthRequest="1700"
-                                                       HorizontalOptions="Start"></skia:SKCanvasView>
-                                    <Label Text="Latest value"
-                                           WidthRequest="200"
-                                           BackgroundColor="Red"
-                                           TextColor="White"
-                                           HorizontalTextAlignment="Center"
-                                           VerticalTextAlignment="Center"></Label>
-                                </StackLayout>
-                            </ScrollView>
-                        </StackLayout>
-
-                        <Label Text="Vital 8"></Label>
-                        <StackLayout Orientation="Horizontal">
-                            <ScrollView x:Name ="Sv8"
-                                        Orientation="Both"
-                                        WidthRequest="850"
-                                        HeightRequest="200"
-                                        HorizontalOptions="Start"
-                                        HorizontalScrollBarVisibility="Never">
-                                <StackLayout Orientation="Horizontal"
-                                             HeightRequest="200">
-                                    <skia:SKCanvasView x:Name="LineView8"
-                                                       PaintSurface="TrendView8"
-                                                       WidthRequest="1700"
-                                                       HorizontalOptions="Start"></skia:SKCanvasView>
-                                    <Label Text="Latest value"
-                                           WidthRequest="200"
-                                           BackgroundColor="Red"
-                                           TextColor="White"
-                                           HorizontalTextAlignment="Center"
-                                           VerticalTextAlignment="Center"></Label>
-                                </StackLayout>
-                            </ScrollView>
-                        </StackLayout>
+                            <!-- vertical bar -->
+                            <Line x:Name="bar" X1 ="298" Y1 ="0" X2 ="298" Y2="300" Stroke="Red"></Line>
+                            <Label Text="Vital 1" BackgroundColor="AliceBlue" AbsoluteLayout.LayoutBounds="1,1"></Label>
+                            <Label Text="Vital 2" AbsoluteLayout.LayoutBounds="200,200"></Label>
+                        
+                            <Label Text="Vital 3" AbsoluteLayout.LayoutBounds="0,800"></Label>
+                        
+                        <!-- <Label Text="Vital 4"></Label> -->
+                        <!-- <StackLayout Orientation="Horizontal"> -->
+                        <!--     <ScrollView x:Name ="Sv4" -->
+                        <!--                 Orientation="Both" -->
+                        <!--                 WidthRequest="850" -->
+                        <!--                 HeightRequest="200" -->
+                        <!--                 HorizontalOptions="Start" -->
+                        <!--                 HorizontalScrollBarVisibility="Never"> -->
+                        <!--         <StackLayout Orientation="Horizontal" -->
+                        <!--                      HeightRequest="200"> -->
+                        <!--             <skia:SKCanvasView x:Name="LineView4" -->
+                        <!--                                PaintSurface="TrendView4" -->
+                        <!--                                WidthRequest="1700" -->
+                        <!--                                HorizontalOptions="Start"></skia:SKCanvasView> -->
+                        <!--             <Label Text="Latest value" -->
+                        <!--                    WidthRequest="200" -->
+                        <!--                    BackgroundColor="#f7a663" -->
+                        <!--                    TextColor="White" -->
+                        <!--                    HorizontalTextAlignment="Center" -->
+                        <!--                    VerticalTextAlignment="Center"></Label> -->
+                        <!--         </StackLayout> -->
+                        <!--     </ScrollView> -->
+                        <!-- </StackLayout> -->
+                        <!-- -->
+                        <!-- <Label Text="Vital 5"></Label> -->
+                        <!-- <StackLayout Orientation="Horizontal"> -->
+                        <!--     <ScrollView x:Name ="Sv5" -->
+                        <!--                 Orientation="Both" -->
+                        <!--                 WidthRequest="850" -->
+                        <!--                 HeightRequest="200" -->
+                        <!--                 HorizontalOptions="Start" -->
+                        <!--                 HorizontalScrollBarVisibility="Never"> -->
+                        <!--         <StackLayout Orientation="Horizontal" -->
+                        <!--                      HeightRequest="200"> -->
+                        <!--             <skia:SKCanvasView x:Name="LineView5" -->
+                        <!--                                PaintSurface="TrendView5" -->
+                        <!--                                WidthRequest="1700" -->
+                        <!--                                HorizontalOptions="Start"></skia:SKCanvasView> -->
+                        <!--             <Label Text="Latest value" -->
+                        <!--                    WidthRequest="200" -->
+                        <!--                    BackgroundColor="Red" -->
+                        <!--                    TextColor="White" -->
+                        <!--                    HorizontalTextAlignment="Center" -->
+                        <!--                    VerticalTextAlignment="Center"></Label> -->
+                        <!--         </StackLayout> -->
+                        <!--     </ScrollView> -->
+                        <!-- </StackLayout> -->
+                        <!-- -->
+                        <!-- <Label Text="Vital 6"></Label> -->
+                        <!-- <StackLayout Orientation="Horizontal"> -->
+                        <!--     <ScrollView x:Name ="Sv6" -->
+                        <!--                 Orientation="Both" -->
+                        <!--                 WidthRequest="850" -->
+                        <!--                 HeightRequest="200" -->
+                        <!--                 HorizontalOptions="Start" -->
+                        <!--                 HorizontalScrollBarVisibility="Never"> -->
+                        <!--         <StackLayout Orientation="Horizontal" -->
+                        <!--                      HeightRequest="200"> -->
+                        <!--             <skia:SKCanvasView x:Name="LineView6" -->
+                        <!--                                PaintSurface="TrendView6" -->
+                        <!--                                WidthRequest="1700" -->
+                        <!--                                HorizontalOptions="Start"></skia:SKCanvasView> -->
+                        <!--             <Label Text="Latest value" -->
+                        <!--                    WidthRequest="200" -->
+                        <!--                    BackgroundColor="Red" -->
+                        <!--                    TextColor="White" -->
+                        <!--                    HorizontalTextAlignment="Center" -->
+                        <!--                    VerticalTextAlignment="Center"></Label> -->
+                        <!--         </StackLayout> -->
+                        <!--     </ScrollView> -->
+                        <!-- </StackLayout> -->
+                        <!-- -->
+                        <!-- <Label Text="Vital 7"></Label> -->
+                        <!-- <StackLayout Orientation="Horizontal"> -->
+                        <!--     <ScrollView x:Name ="Sv7" -->
+                        <!--                 Orientation="Both" -->
+                        <!--                 WidthRequest="850" -->
+                        <!--                 HeightRequest="200" -->
+                        <!--                 HorizontalOptions="Start" -->
+                        <!--                 HorizontalScrollBarVisibility="Never"> -->
+                        <!--         <StackLayout Orientation="Horizontal" -->
+                        <!--                      HeightRequest="200"> -->
+                        <!--             <skia:SKCanvasView x:Name="LineView7" -->
+                        <!--                                PaintSurface="TrendView7" -->
+                        <!--                                WidthRequest="1700" -->
+                        <!--                                HorizontalOptions="Start"></skia:SKCanvasView> -->
+                        <!--             <Label Text="Latest value" -->
+                        <!--                    WidthRequest="200" -->
+                        <!--                    BackgroundColor="Red" -->
+                        <!--                    TextColor="White" -->
+                        <!--                    HorizontalTextAlignment="Center" -->
+                        <!--                    VerticalTextAlignment="Center"></Label> -->
+                        <!--         </StackLayout> -->
+                        <!--     </ScrollView> -->
+                        <!-- </StackLayout> -->
+                        <!-- -->
+                        <!-- <Label Text="Vital 8"></Label> -->
+                        <!-- <StackLayout Orientation="Horizontal"> -->
+                        <!--     <ScrollView x:Name ="Sv8" -->
+                        <!--                 Orientation="Both" -->
+                        <!--                 WidthRequest="850" -->
+                        <!--                 HeightRequest="200" -->
+                        <!--                 HorizontalOptions="Start" -->
+                        <!--                 HorizontalScrollBarVisibility="Never"> -->
+                        <!--         <StackLayout Orientation="Horizontal" -->
+                        <!--                      HeightRequest="200"> -->
+                        <!--             <skia:SKCanvasView x:Name="LineView8" -->
+                        <!--                                PaintSurface="TrendView8" -->
+                        <!--                                WidthRequest="1700" -->
+                        <!--                                HorizontalOptions="Start"></skia:SKCanvasView> -->
+                        <!--             <Label Text="Latest value" -->
+                        <!--                    WidthRequest="200" -->
+                        <!--                    BackgroundColor="Red" -->
+                        <!--                    TextColor="White" -->
+                        <!--                    HorizontalTextAlignment="Center" -->
+                        <!--                    VerticalTextAlignment="Center"></Label> -->
+                        <!--         </StackLayout> -->
+                        <!--     </ScrollView> -->
+                        <!-- </StackLayout> -->
+                        </AbsoluteLayout>
+                        
 
                   <!--       <Polyline Points="20 20,250 50,20 120" -->
                   <!-- Stroke="DarkBlue" -->

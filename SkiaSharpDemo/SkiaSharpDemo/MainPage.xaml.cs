@@ -62,13 +62,13 @@ namespace SkiaSharpDemo
             InitializeVS8();
 
             _trendViewScrollViews.Add(Sv1);
-            _trendViewScrollViews.Add(Sv2);
-            _trendViewScrollViews.Add(Sv3);
-            _trendViewScrollViews.Add(Sv4);
-            _trendViewScrollViews.Add(Sv5);
-            _trendViewScrollViews.Add(Sv6);
-            _trendViewScrollViews.Add(Sv7);
-            _trendViewScrollViews.Add(Sv8);
+            // _trendViewScrollViews.Add(Sv2);
+            // _trendViewScrollViews.Add(Sv3);
+            // _trendViewScrollViews.Add(Sv4);
+            // _trendViewScrollViews.Add(Sv5);
+            // _trendViewScrollViews.Add(Sv6);
+            // _trendViewScrollViews.Add(Sv7);
+            // _trendViewScrollViews.Add(Sv8);
 
             foreach (ScrollView view in _trendViewScrollViews)
             {
@@ -128,11 +128,11 @@ namespace SkiaSharpDemo
         
         private void InitializeVS1()
         {
+            _VS1DataPoints.Add(new DataPoint(150, 100));
             _VS1DataPoints.Add(new DataPoint(300, 100));
-            _VS1DataPoints.Add(new DataPoint(800, 100));
-            _VS1DataPoints.Add(new DataPoint(1200, 150, DataPoint.Abnormality.Abnormal));
-            _VS1DataPoints.Add(new DataPoint(1500, 50, DataPoint.Abnormality.Critical));
-            _VS1DataPoints.Add(new DataPoint(1710, 140, DataPoint.Abnormality.Abnormal));
+            _VS1DataPoints.Add(new DataPoint(500, 150, DataPoint.Abnormality.Abnormal));
+            _VS1DataPoints.Add(new DataPoint(700, 50, DataPoint.Abnormality.Critical));
+            _VS1DataPoints.Add(new DataPoint(840, 140, DataPoint.Abnormality.Abnormal));
 
             // Creating the SKPoints is not really necessary. I have done this so that I can easily change techniques for drawing lines/points.
             // SKPoints are just more convenient because we don't have to provide the x and y coordinates separately
@@ -301,21 +301,21 @@ namespace SkiaSharpDemo
             // This line also demonstrates how we can use DrawPoints() to automatically connect an array of SKPoints with a line
             // Note that this is just a line with no datapoint circles. There is also SPointMode.Points which will plot points based on the array
             // but I found the circles to be too small for what I was doing and they were also filled in with the selected color
-            canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS1a.ToArray(), trendLinePaint);
+            // canvas.DrawPoints(SKPointMode.Lines, _SKPointsVS1a.ToArray(), trendLinePaint);
 
-            foreach (SKPoint point in _SKPointsVS1a)
-            {
-                // First we draw a circle using our selected color and style (in this case Stroke) to make an empty circle
-                dataPointPaint.Style = SKPaintStyle.Stroke;
-                dataPointPaint.Color = SKColors.Orange;
-                canvas.DrawCircle(point, 6, dataPointPaint);
-
-                // Because the circle is drawn on top of the trend line, we can still see the line through the circle
-                // To achieve the effect of an empty circle, we redraw the circle but this time using a fill
-                dataPointPaint.Style = SKPaintStyle.Fill;
-                dataPointPaint.Color = SKColors.White;
-                canvas.DrawCircle(point, 6, dataPointPaint);
-            }
+            // foreach (SKPoint point in _SKPointsVS1a)
+            // {
+            //     // First we draw a circle using our selected color and style (in this case Stroke) to make an empty circle
+            //     dataPointPaint.Style = SKPaintStyle.Stroke;
+            //     dataPointPaint.Color = SKColors.Orange;
+            //     canvas.DrawCircle(point, 6, dataPointPaint);
+            //
+            //     // Because the circle is drawn on top of the trend line, we can still see the line through the circle
+            //     // To achieve the effect of an empty circle, we redraw the circle but this time using a fill
+            //     dataPointPaint.Style = SKPaintStyle.Fill;
+            //     dataPointPaint.Color = SKColors.White;
+            //     canvas.DrawCircle(point, 6, dataPointPaint);
+            // }
 
             // For the bottom line, this is a way we can make each line a different color. Each line will need to be
             // drawn individually with DrawLine() instead of DrawPoints() so that we can switch colors in between
@@ -543,6 +543,9 @@ namespace SkiaSharpDemo
                 canvas.DrawCircle(point, 6, dataPointPaint);
             }
 
+            // Draw box for latest values?
+            // canvas.DrawRect(2000,0,180, 180, dataPointPaint);
+
         }
 
         
@@ -606,15 +609,16 @@ namespace SkiaSharpDemo
                 canvas.DrawLine(0, i, 2000, i, graphLinePaint);
                 
             }
+
         }
 
         void LineView_Touch(System.Object sender, SkiaSharp.Views.Forms.SKTouchEventArgs e)
         {
             if(e.ActionType == SKTouchAction.Pressed)
             {
-                var touched = _VS1DataPoints.FirstOrDefault(d => Math.Abs(d.value - e.Location.Y) <= 6 && Math.Abs(d.time - e.Location.X) <= 6);
-                if(touched != null)
-                {
+                var touched = _VS1DataPoints.FirstOrDefault(d => Math.Abs(d.time - e.Location.X) <= 6);
+                // if(touched != null)
+                // {
                     // foreach (var c in VS1_Stack.Children)
                     // {
                     //     if (TooltipEffect.GetHasTooltip(c))
@@ -623,10 +627,14 @@ namespace SkiaSharpDemo
                     //         TooltipEffect.SetHasTooltip(c, true);
                     //     }
                     // }
-                    var message = $"Touched {touched.value} and a time would go here for now it is the X-axis: {touched.time/50}";
-                    DisplayAlert("Datapoint clicked", message, "Got it!");
-                    Debug.WriteLine($"Touched {touched.value}");
-                }
+                    var screenWidth = absolute.Width;
+                    var graphWidth = LineView.Width;
+                    bar.X1 = e.Location.X;
+                    bar.X2 = e.Location.X;
+                    // var message = $"Touched {touched.value} and a time would go here for now it is the X-axis: {touched.time/50}";
+                    // DisplayAlert("Datapoint clicked", message, "Got it!");
+                    // Debug.WriteLine($"Touched {touched.value}");
+                // }
 
             }
         }
