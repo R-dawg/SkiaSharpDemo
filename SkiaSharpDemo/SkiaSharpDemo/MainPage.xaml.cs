@@ -62,7 +62,7 @@ namespace SkiaSharpDemo
             InitializeVS7();
             InitializeVS8();
 
-            _trendViewScrollViews.Add(Sv1);
+            // _trendViewScrollViews.Add(Sv1);
             // _trendViewScrollViews.Add(Sv2);
             // _trendViewScrollViews.Add(Sv3);
             // _trendViewScrollViews.Add(Sv4);
@@ -291,7 +291,7 @@ namespace SkiaSharpDemo
         {
             SKSurface surface = e.Surface;
             SKCanvas canvas = surface.Canvas;
-            _viewScale = (float)e.Info.Width/800;
+            _viewScale = (float)e.Info.Width/(float)absolute.Width;
 
             DrawGraph(canvas, e);
 
@@ -587,7 +587,7 @@ namespace SkiaSharpDemo
             await Task.Yield();
 
             _loadingGraphs = true;
-            await Sv1.ScrollToAsync(1200, 0, false);
+            // await Sv1.ScrollToAsync(1200, 0, false);
         }
 
         private void DrawGraph(SKCanvas canvas, SKPaintSurfaceEventArgs e)
@@ -614,9 +614,9 @@ namespace SkiaSharpDemo
 
         }
 
-        void LineView_Touch(System.Object sender, SkiaSharp.Views.Forms.SKTouchEventArgs e)
+        void LineView_Touch(System.Object sender, SKTouchEventArgs e)
         {
-            if(e.ActionType == SKTouchAction.Pressed || e.ActionType == SKTouchAction.Moved)
+            if(e.ActionType == SKTouchAction.Pressed)
             {
                 var touched = _VS1DataPoints.FirstOrDefault(d => Math.Abs(d.time - e.Location.X) <= 6);
                 // if(touched != null)
@@ -634,11 +634,20 @@ namespace SkiaSharpDemo
                     bar.X1 = e.Location.X/_viewScale;
                     bar.X2 = e.Location.X/_viewScale;
                     Debug.WriteLine($"Touched {e.Location.X} --> {bar.X1}");
+                    Debug.WriteLine($"{e.ActionType}");
                     // var message = $"Touched {touched.value} and a time would go here for now it is the X-axis: {touched.time/50}";
                     // DisplayAlert("Datapoint clicked", message, "Got it!");
                     // Debug.WriteLine($"Touched {touched.value}");
                 // }
 
+            }
+
+            if (e.ActionType == SKTouchAction.Moved)
+            {
+                bar.X1 = e.Location.X/_viewScale;
+                bar.X2 = e.Location.X/_viewScale;
+                Debug.WriteLine($"Moved {e.Location.X} --> {bar.X1}");
+                Debug.WriteLine($"{e.ActionType}");
             }
         }
 

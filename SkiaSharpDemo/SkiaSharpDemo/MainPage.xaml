@@ -35,20 +35,20 @@
                             <StackLayout.GestureRecognizers>
                                 <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
                             </StackLayout.GestureRecognizers>
-                            <ScrollView x:Name ="Sv1" 
-                                        Orientation="Both"
-                                        WidthRequest="800"
-                                        HeightRequest="200"
-                                        HorizontalOptions="Start"
-                                        HorizontalScrollBarVisibility="Never">
-                                    <ScrollView.GestureRecognizers>
-                                        <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
-                                    </ScrollView.GestureRecognizers>
+                            <!-- <ScrollView x:Name ="Sv1"  -->
+                                        <!-- Orientation="Both" -->
+                                        <!-- WidthRequest="1280" -->
+                                        <!-- HeightRequest="200" -->
+                                        <!-- HorizontalOptions="Start" -->
+                                        <!-- HorizontalScrollBarVisibility="Never"> -->
+                                    <!-- <ScrollView.GestureRecognizers> -->
+                                    <!--     <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer> -->
+                                    <!-- </ScrollView.GestureRecognizers> -->
                                 <StackLayout Orientation="Horizontal"
                                              HeightRequest="200">
                                     <skia:SKCanvasView x:Name="LineView"
                                                        PaintSurface="TrendView1"
-                                                       WidthRequest="800"
+                                                       WidthRequest="1280"
                                                        HorizontalOptions="Start"
                                                        EnableTouchEvents="True"
                                                        Touch="LineView_Touch">
@@ -65,7 +65,7 @@
                                     <!--        VerticalTextAlignment="Center"></Label> -->
                             
                                 </StackLayout>
-                            </ScrollView>
+                            <!-- </ScrollView> -->
                             
                         </StackLayout>
                             
