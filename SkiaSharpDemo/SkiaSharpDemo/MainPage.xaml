@@ -14,12 +14,12 @@
         <!--            BackgroundColor="AliceBlue" -->
         <!--            Text="Drawers go here" -->
         <!--            TextColor="Blue"></Label> -->
-        <!--     <StackLayout Orientation="Vertical"> -->
-        <!--         ~1~ <shape:Rectangle Fill="lightblue" @1@ -->
-        <!--         ~1~            WidthRequest="1000" @1@ -->
-        <!--         ~1~            HeightRequest="200"/> @1@ -->
+        <StackLayout Orientation="Vertical">
+            <shape:Rectangle Fill="lightblue"
+                       WidthRequest="1280"
+                       HeightRequest="200"/>
 
-                <ScrollView Orientation="Vertical"
+                <ScrollView Orientation="Both"
                             HeightRequest="2000">
                     <!-- <StackLayout WidthRequest="800" -->
                     <!--              x:Name="VitalsStack"> -->
@@ -71,22 +71,24 @@
                             
 
                         
-                        <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,250">
-                            <ScrollView x:Name ="Sv2"
-                                    Orientation="Both"
-                                    WidthRequest="800"
-                                    HeightRequest="200"
-                                    HorizontalOptions="Start"
-                                    HorizontalScrollBarVisibility="Never">
-                                <StackLayout Orientation="Horizontal"
-                                             HeightRequest="200">
+                        <!-- <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,250"> -->
+                            <!-- <ScrollView x:Name ="Sv2" -->
+                            <!--         Orientation="Both" -->
+                            <!--         WidthRequest="1280" -->
+                            <!--         HeightRequest="200" -->
+                            <!--         HorizontalOptions="Start" -->
+                            <!--         HorizontalScrollBarVisibility="Never"> -->
+                            <!--     <StackLayout Orientation="Horizontal" -->
+                            <!--                  HeightRequest="200"> -->
                                     <skia:SKCanvasView x:Name="LineView2"
                                                        PaintSurface="TrendView2"
-                                                       WidthRequest="800"
-                                                       HorizontalOptions="Start"></skia:SKCanvasView>
-                                </StackLayout>
-                            </ScrollView>
-                        </StackLayout>
+                                                       WidthRequest="1280"
+                                                       HeightRequest="200"
+                                                       HorizontalOptions="Start"
+                                                       AbsoluteLayout.LayoutBounds="0,250"></skia:SKCanvasView>
+                                <!-- </StackLayout> -->
+                            <!-- </ScrollView> -->
+                        <!-- </StackLayout> -->
                          
                         <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,850">
                             <ScrollView x:Name ="Sv3"
@@ -99,7 +101,7 @@
                                              HeightRequest="200">
                                     <skia:SKCanvasView x:Name="LineView3"
                                                        PaintSurface="TrendView3"
-                                                       WidthRequest="800"
+                                                       WidthRequest="1280"
                                                        HorizontalOptions="Start"></skia:SKCanvasView>
                                     <Label Text="Latest value"
                                            WidthRequest="200"
@@ -114,13 +116,13 @@
 
                             <!-- vertical bar -->
                             
-                            <Line x:Name="bar" X1 ="298" Y1 ="0" X2 ="298" Y2="400" Stroke="Red"></Line>
+                            <Line x:Name="bar" X1 ="298" Y1 ="0" X2 ="298" Y2="400" Stroke="Black" StrokeThickness="2"></Line>
                             <!-- <Line x:Name="bar2" X1 ="310" Y1 ="0" X2 ="310" Y2="300" Stroke="Blue"></Line> -->
                             <!-- <Line x:Name="bar3" X1 ="150" Y1 ="0" X2 ="150" Y2="300" Stroke="green"></Line> -->
 
-                            <Label Text="Vital 1" BackgroundColor="AliceBlue" WidthRequest="400" HeightRequest="50" AbsoluteLayout.LayoutBounds="100,0"></Label>
-                            <Label Text="Vital 2" BackgroundColor="AliceBlue" WidthRequest="400" HeightRequest="50" AbsoluteLayout.LayoutBounds="100,200"></Label>
-                            <Label Text="Vital 3" BackgroundColor="AliceBlue" WidthRequest="400" HeightRequest="50" AbsoluteLayout.LayoutBounds="100,800"></Label>
+                            <Label Text="Vital 1" BackgroundColor="BlanchedAlmond" WidthRequest="400" HeightRequest="50" AbsoluteLayout.LayoutBounds="100,0"></Label>
+                            <Label Text="Vital 2" BackgroundColor="BlanchedAlmond" WidthRequest="400" HeightRequest="50" AbsoluteLayout.LayoutBounds="100,200"></Label>
+                            <Label Text="Vital 3" BackgroundColor="BlanchedAlmond" WidthRequest="400" HeightRequest="50" AbsoluteLayout.LayoutBounds="100,800"></Label>
 
                         </AbsoluteLayout>
                         
@@ -131,7 +133,7 @@
                   <!-- StrokeLineJoin="Round" /> -->
                   <!-- </StackLayout> -->
                 </ScrollView>
-        <!--     </StackLayout> -->
+        </StackLayout>
         <!--      -->
         <!-- </StackLayout> -->
         
