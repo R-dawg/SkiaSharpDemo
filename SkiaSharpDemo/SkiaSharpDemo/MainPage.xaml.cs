@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
-using SkiaSharpDemo.Effects;
 using Xamarin.Forms;
-using Xamarin.Forms.Shapes;
-using Xamarin.Forms.Xaml;
+using TouchTracking;
 using PropertyChangingEventArgs = Xamarin.Forms.PropertyChangingEventArgs;
 
 namespace SkiaSharpDemo
@@ -614,41 +609,36 @@ namespace SkiaSharpDemo
 
         }
 
+        void OnTouchEventAction(Object sender, TouchTracking.TouchActionEventArgs e)
+        {
+
+        }
+
         void LineView_Touch(System.Object sender, SKTouchEventArgs e)
         {
-            if(e.ActionType == SKTouchAction.Pressed)
+            switch(e.ActionType)
             {
-                var touched = _VS1DataPoints.FirstOrDefault(d => Math.Abs(d.time - e.Location.X) <= 6);
-                // if(touched != null)
-                // {
-                    // foreach (var c in VS1_Stack.Children)
-                    // {
-                    //     if (TooltipEffect.GetHasTooltip(c))
-                    //     {
-                    //         TooltipEffect.SetHasTooltip(c, false);
-                    //         TooltipEffect.SetHasTooltip(c, true);
-                    //     }
-                    // }
-                    var screenWidth = absolute.Width;
-                    var graphWidth = LineView.Width;
-                    bar.X1 = e.Location.X/_viewScale;
-                    bar.X2 = e.Location.X/_viewScale;
+                case SKTouchAction.Pressed:
+                    bar.X1 = e.Location.X / _viewScale;
+                    bar.X2 = e.Location.X / _viewScale;
                     Debug.WriteLine($"Touched {e.Location.X} --> {bar.X1}");
                     Debug.WriteLine($"{e.ActionType}");
-                    // var message = $"Touched {touched.value} and a time would go here for now it is the X-axis: {touched.time/50}";
-                    // DisplayAlert("Datapoint clicked", message, "Got it!");
-                    // Debug.WriteLine($"Touched {touched.value}");
-                // }
+                    break;
 
-            }
+                case SKTouchAction.Moved:
+                    bar.X1 = e.Location.X / _viewScale;
+                    bar.X2 = e.Location.X / _viewScale;
+                    Debug.WriteLine($"Moved {e.Location.X} --> {bar.X1}");
+                    Debug.WriteLine($"{e.ActionType}");
+                    break;
 
-            if (e.ActionType == SKTouchAction.Moved)
-            {
-                bar.X1 = e.Location.X/_viewScale;
-                bar.X2 = e.Location.X/_viewScale;
-                Debug.WriteLine($"Moved {e.Location.X} --> {bar.X1}");
-                Debug.WriteLine($"{e.ActionType}");
+                default:
+                    bar.X1 = e.Location.X / _viewScale;
+                    bar.X2 = e.Location.X / _viewScale;
+                    Debug.WriteLine($"{e.ActionType}");
+                    break;
             }
+            
         }
 
         void OnPinchUpdated (object sender, PinchGestureUpdatedEventArgs e)

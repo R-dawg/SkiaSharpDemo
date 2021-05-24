@@ -2,8 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
-             xmlns:effects="clr-namespace:SkiaSharpDemo.Effects;assembly=SkiaSharpDemo" 
+              
              xmlns:shape="clr-namespace:Xamarin.Forms.Shapes;assembly=Xamarin.Forms.Core"
+             
              x:Class="SkiaSharpDemo.MainPage">
 
     <ContentPage.Content>
@@ -14,36 +15,20 @@
         <!--            BackgroundColor="AliceBlue" -->
         <!--            Text="Drawers go here" -->
         <!--            TextColor="Blue"></Label> -->
-        <StackLayout Orientation="Vertical">
-            <shape:Rectangle Fill="lightblue"
-                       WidthRequest="1280"
-                       HeightRequest="200"/>
 
-                <ScrollView Orientation="Both"
-                            HeightRequest="2000">
-                    <!-- <StackLayout WidthRequest="800" -->
-                    <!--              x:Name="VitalsStack"> -->
-                        
+               
                         <AbsoluteLayout x:Name="absolute">
                             <AbsoluteLayout.GestureRecognizers>
                                 <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
                             </AbsoluteLayout.GestureRecognizers>
-
+                          
                         
                         <StackLayout Orientation="Horizontal"
                                      x:Name="VS1Stack" AbsoluteLayout.LayoutBounds="0,50">
                             <StackLayout.GestureRecognizers>
                                 <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
                             </StackLayout.GestureRecognizers>
-                            <!-- <ScrollView x:Name ="Sv1"  -->
-                                        <!-- Orientation="Both" -->
-                                        <!-- WidthRequest="1280" -->
-                                        <!-- HeightRequest="200" -->
-                                        <!-- HorizontalOptions="Start" -->
-                                        <!-- HorizontalScrollBarVisibility="Never"> -->
-                                    <!-- <ScrollView.GestureRecognizers> -->
-                                    <!--     <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer> -->
-                                    <!-- </ScrollView.GestureRecognizers> -->
+                           
                                 <StackLayout Orientation="Horizontal"
                                              HeightRequest="200">
                                     <skia:SKCanvasView x:Name="LineView"
@@ -56,40 +41,21 @@
                                             <PinchGestureRecognizer PinchUpdated="OnPinchUpdated"></PinchGestureRecognizer>
                                         </skia:SKCanvasView.GestureRecognizers>
                                     </skia:SKCanvasView>
-                                    <!-- <Label Text="Latest value" -->
-                                    <!--        WidthRequest="200" -->
-                                    <!--        HeightRequest="180" -->
-                                    <!--        BackgroundColor="Orange" -->
-                                    <!--        TextColor="White" -->
-                                    <!--        HorizontalTextAlignment="Center" -->
-                                    <!--        VerticalTextAlignment="Center"></Label> -->
+                      
                             
                                 </StackLayout>
-                            <!-- </ScrollView> -->
                             
                         </StackLayout>
                             
 
                         
-                        <!-- <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,250"> -->
-                            <!-- <ScrollView x:Name ="Sv2" -->
-                            <!--         Orientation="Both" -->
-                            <!--         WidthRequest="1280" -->
-                            <!--         HeightRequest="200" -->
-                            <!--         HorizontalOptions="Start" -->
-                            <!--         HorizontalScrollBarVisibility="Never"> -->
-                            <!--     <StackLayout Orientation="Horizontal" -->
-                            <!--                  HeightRequest="200"> -->
                                     <skia:SKCanvasView x:Name="LineView2"
                                                        PaintSurface="TrendView2"
                                                        WidthRequest="1280"
                                                        HeightRequest="200"
                                                        HorizontalOptions="Start"
                                                        AbsoluteLayout.LayoutBounds="0,250"></skia:SKCanvasView>
-                                <!-- </StackLayout> -->
-                            <!-- </ScrollView> -->
-                        <!-- </StackLayout> -->
-                         
+          
                         <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,850">
                             <ScrollView x:Name ="Sv3"
                                     Orientation="Both"
@@ -103,22 +69,17 @@
                                                        PaintSurface="TrendView3"
                                                        WidthRequest="1280"
                                                        HorizontalOptions="Start"></skia:SKCanvasView>
-                                    <Label Text="Latest value"
-                                           WidthRequest="200"
-                                           BackgroundColor="Red"
-                                           TextColor="White"
-                                           HorizontalTextAlignment="Center"
-                                           VerticalTextAlignment="Center"></Label>
+                                  
                                 </StackLayout>
                             </ScrollView>
                         
                         </StackLayout>
 
-                            <!-- vertical bar -->
+                             <!--vertical bar--> 
                             
                             <Line x:Name="bar" X1 ="298" Y1 ="0" X2 ="298" Y2="400" Stroke="Black" StrokeThickness="2"></Line>
-                            <!-- <Line x:Name="bar2" X1 ="310" Y1 ="0" X2 ="310" Y2="300" Stroke="Blue"></Line> -->
-                            <!-- <Line x:Name="bar3" X1 ="150" Y1 ="0" X2 ="150" Y2="300" Stroke="green"></Line> -->
+                             <!--<Line x:Name="bar2" X1 ="310" Y1 ="0" X2 ="310" Y2="300" Stroke="Blue"></Line>--> 
+                             <!--<Line x:Name="bar3" X1 ="150" Y1 ="0" X2 ="150" Y2="300" Stroke="green"></Line>--> 
 
                             <Label Text="Vital 1" BackgroundColor="BlanchedAlmond" WidthRequest="400" HeightRequest="50" AbsoluteLayout.LayoutBounds="100,0"></Label>
                             <Label Text="Vital 2" BackgroundColor="BlanchedAlmond" WidthRequest="400" HeightRequest="50" AbsoluteLayout.LayoutBounds="100,200"></Label>
@@ -127,16 +88,6 @@
                         </AbsoluteLayout>
                         
 
-                  <!--       <Polyline Points="20 20,250 50,20 120" -->
-                  <!-- Stroke="DarkBlue" -->
-                  <!-- StrokeThickness="20" -->
-                  <!-- StrokeLineJoin="Round" /> -->
-                  <!-- </StackLayout> -->
-                </ScrollView>
-        </StackLayout>
-        <!--      -->
-        <!-- </StackLayout> -->
-        
     </ContentPage.Content>
 
 
